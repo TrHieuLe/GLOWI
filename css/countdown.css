@@ -1,0 +1,158 @@
+/* === COUNTDOWN - GLOWI THEME === */
+.countdown-section {
+  background: linear-gradient(180deg, #fff5f9 0%, #ffe6f0 100%);
+  border-radius: 22px;
+  padding: 45px 30px;
+  margin: 60px auto;
+  width: 90%;
+  max-width: 780px;
+  box-shadow: 0 10px 40px rgba(233, 30, 99, 0.15);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Header */
+.countdown-header h2 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #ad1457;
+  margin-bottom: 8px;
+}
+
+.countdown-header .course-name {
+  font-size: 1.3rem;
+  color: #e91e63;
+  font-weight: 600;
+  margin-bottom: 28px;
+}
+
+/* Timer Boxes */
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.time-box {
+  background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+  color: #fff;
+  padding: 20px 18px;
+  border-radius: 15px;
+  min-width: 90px;
+  flex: 1 1 90px;
+  max-width: 120px;
+  box-shadow: 0 6px 18px rgba(233, 30, 99, 0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.time-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(156, 39, 176, 0.4);
+}
+
+.time-box .number {
+  font-size: 2.2rem;
+  font-weight: 700;
+  display: block;
+}
+
+.time-box .label {
+  font-size: 0.85rem;
+  margin-top: 8px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* Message */
+.countdown-message {
+  margin-top: 28px;
+  background: #fce4ec;
+  padding: 12px 22px;
+  border-radius: 12px;
+  color: #d81b60;
+  font-weight: 600;
+  font-size: 1rem;
+  display: inline-block;
+  box-shadow: 0 4px 10px rgba(233, 30, 99, 0.15);
+}
+
+/* Button */
+.cta-button {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 13px 28px;
+  background: linear-gradient(90deg, #ec407a, #d81b60);
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(236, 64, 122, 0.3);
+}
+
+.cta-button:hover {
+  background: linear-gradient(90deg, #d81b60, #ad1457);
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(156, 39, 176, 0.4);
+}
+
+/* === Responsive === */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .countdown-section {
+    padding: 35px 20px;
+    margin: 45px auto;
+  }
+
+  .countdown-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .time-box {
+    padding: 16px 12px;
+    min-width: 80px;
+  }
+
+  .time-box .number {
+    font-size: 1.8rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .countdown-section {
+    padding: 25px 15px;
+    margin: 30px auto;
+    max-width: 95%;
+  }
+
+  .countdown-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .countdown-header .course-name {
+    font-size: 1rem;
+  }
+
+  .time-box {
+    min-width: 70px;
+    padding: 10px 8px;
+  }
+
+  .time-box .number {
+    font-size: 1.6rem;
+  }
+
+  .time-box .label {
+    font-size: 0.7rem;
+  }
+
+  .cta-button {
+    font-size: 0.9rem;
+    padding: 10px 22px;
+  }
+}

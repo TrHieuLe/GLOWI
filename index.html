@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GLOWI - Nói để tỏa sáng</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="img/img-logo/chot-logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/countdown.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== BLOG SECTION ===== */
+#blog {
+  padding: 80px 0;
+  background: #fffafc; /* nền trắng pha hồng nhẹ */
+}
+
+/* Tiêu đề */
+#blog .section-head {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+#blog .section-head h2 {
+  font-size: 2rem;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+
+#blog .section-head .section-desc {
+  color: #666;
+  font-size: 1rem;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* Lưới bài viết */
+#blog .blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+/* Thẻ bài viết */
+#blog .blog-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#blog .blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+/* Ảnh */
+#blog .blog-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+#blog .blog-card:hover .blog-image img {
+  transform: scale(1.05);
+}
+
+/* Nội dung */
+#blog .blog-content {
+  padding: 20px 22px 25px;
+}
+
+#blog .blog-content h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+#blog .blog-content h3 a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+#blog .blog-content h3 a:hover {
+  color: #e91e63; /* 💗 hồng khi hover */
+  cursor: pointer;
+}
+
+#blog .blog-content p {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* Meta (ngày, tác giả) */
+#blog .blog-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #999;
+  border-top: 1px solid #f2f2f2;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+/* Giảng viên*/
+/* ========== INSTRUCTORS SECTION ========== */
+.instructors {
+  padding: 80px 0;
+  background: #f8f9fa;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.instructors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.instr-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.instr-card:hover {
+  transform: translateY(-5px);
+}
+
+.instr-card img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+.role-tag {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #ff4c4c;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.instr-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: #fff;
+  padding: 20px 15px;
+  text-align: center;
+}
+
+.instr-info h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff; 
+}
+
+.instr-info p {
+  font-size: 14px;
+  margin: 5px 0 10px;
+  color: #ffffff; 
+}
+
+.read-more {
+  background: #ff4c4c;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.read-more:hover {
+  background: #ff2b2b;
+}
+
+/*VIDEO*/
+#intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: black;
+  z-index: 9999;
+  transition: opacity 1s ease;
+}
+
+#intro video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mặc định ẩn video mobile */
+.video-mobile {
+  display: none;
+}
+
+/* Khi màn hình nhỏ hơn 768px → hiện video mobile */
+@media (max-width: 768px) {
+  .video-desktop {
+    display: none;
+  }
+  .video-mobile {
+    display: block;
+  }
+}
+
+/* Khi ẩn intro */
+#intro.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/*VOICE*/
+
+.voice-section {
+      max-width: 1200px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .voice-section h2 {
+      font-size: 30px;
+      color: #1a1a1a;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      padding: 10px 40px;
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.4s ease-in-out;
+    }
+
+    .voice-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      margin: 0 12px;
+      text-align: center;
+      width: 250px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .voice-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .voice-card-content {
+      padding: 15px;
+    }
+
+    .voice-card h4 {
+      margin: 12px 0 5px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .voice-card audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: white;
+      color: #333;
+      border: none;
+      padding: 10px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+      z-index: 2;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .arrow:hover {
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .arrow-left {
+      left: 10px;
+    }
+
+    .arrow-right {
+      right: 10px;
+    }
+    /*SLIDE-ẢNH*/
+    /* ===== GALLERY SLIDER ===== */
+.gallery-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  border-radius: 12px;
+}
+
+.gallery-track {
+  display: flex;
+  width: max-content;
+  animation: scrollGallery 40s linear infinite;
+}
+
+.gallery-track img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-right: 10px;
+  transition: transform 0.5s ease;
+}
+
+.gallery-track img:hover {
+  transform: scale(1.05);
+}
+
+/* Animation chạy ngang liên tục */
+@keyframes scrollGallery {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Khi rê chuột vào thì dừng lại */
+.gallery-wrapper:hover .gallery-track {
+  animation-play-state: paused;
+}
+/*QR CODE */
+.payment {
+  padding: 60px 20px;
+  text-align: center;
+  background: #fafafa;
+  border-top: 1px solid #eee;
+}
+
+.payment-box {
+  margin-top: 30px;
+}
+
+.payment select {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.qr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  animation: fadeIn 0.5s ease;
+}
+
+.qr-box img {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.qr-box p {
+  margin-top: 10px;
+  font-size: 15px;
+  color: #444;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+    
+
+  </style>
+</head>
+<body>
+   <section id="intro">
+  <!-- Video cho máy tính -->
+  <video id="videoDesktop" class="video-desktop" autoplay muted playsinline>
+    <source src="img/glowi-done.mp4" type="video/mp4">
+  </video>
+
+  <!-- Video cho điện thoại -->
+  <video id="videoMobile" class="video-mobile" autoplay muted playsinline>
+    <source src="img/glo-mobile.mp4" type="video/mp4">
+  </video>
+</section>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Glowi logo" class="logo-img" onerror="this.style.display='none'">
+        <a href="#" class="logo-text">GLOWI</a>
+      </div>
+
+      <button id="menuToggle" class="menu-toggle" aria-label="Mở menu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="nav" id="nav">
+        <ul class="nav-list">
+          <li><a href="#home">Trang chủ</a></li>
+          <li><a href="#about">Giới thiệu</a></li>
+          <li><a href="#courses">Khóa học</a></li>
+          <li><a href="#instructors">Giảng viên</a></li>
+          <li><a href="#testimonials">Cảm nhận</a></li>
+          <li><a href="#schedule">Lịch học</a></li>
+          <li><a href="FAQ.html">Câu hỏi thường gặp</a></li>
+          <li><a href="#contact" class="cta">Đăng ký</a></li>
+          <li><a href="#admin" id="adminLink">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-left">
+        <span class="badge">✨ Trung tâm đào tạo MC, MC Nhí #1 tại Hà Nội</span>
+        <h1>Nói để <span class="highlight">tỏa sáng</span></h1>
+        <p class="lead">
+  Khám phá tiềm năng, rèn luyện kỹ năng và tự tin tỏa sáng trên mọi sân khấu cùng Glowi –
+  <span style="color:#ff4fa3;">Raise your voice, light your world</span>
+</p>
+
+        <div class="hero-actions">
+          <a href="#courses" class="btn btn-primary">Xem khóa học</a>
+          <a href="#contact" class="btn btn-outline">Đăng ký ngay</a>
+        </div>
+
+        <ul class="hero-stats">
+          <li><strong>500+</strong><span>Học viên</span></li>
+          <li><strong>98%</strong><span>Hài lòng</span></li>
+          <li><strong>30+</strong><span>Khóa học</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-right">
+        <div class="card-hero">
+          <img src="img/img-logo/glo-khoa-hoc-1.jpg" alt="Trang Anh" />
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  <!--COUNTDOWN GLOWI-->
+  <div class="container">
+    <!-- COUNTDOWN SECTION -->
+    <div class="countdown-section">
+      <div class="countdown-header">
+        <h2>🔥 Khai giảng sắp diễn ra</h2>
+        <p class="course-name">Khóa MC Sự kiện - Offline tại Hà Nội</p>
+      </div>
+
+      <div id="countdown" class="countdown-timer">
+        <div class="time-box">
+          <span class="number" id="days">00</span>
+          <span class="label">Ngày</span>
+        </div>
+        <div class="time-box">
+          <span class="number" id="hours">00</span>
+          <span class="label">Giờ</span>
+        </div>
+        <div class="time-box">
+          <span class="number" id="minutes">00</span>
+          <span class="label">Phút</span>
+        </div>
+        <div class="time-box">
+          <span class="number" id="seconds">00</span>
+          <span class="label">Giây</span>
+        </div>
+      </div>
+
+      <div class="countdown-message" id="countdownMessage">
+        ⏰ Chỉ còn <strong id="slotsLeft">5 chỗ</strong> cuối cùng! Đăng ký ngay để không bỏ lỡ!
+      </div>
+
+      <button class="cta-button" onclick="registerNow()" href="#contact">
+        Đăng ký ngay
+      </button>
+    </div>
+  </div>
+
+  <!--COUNTDOWN GLOWI-->
+
+  <!-- About -->
+  <section id="about" class="section about">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag" style="font-size: 20px;">Về Glowi</span>
+        <h2>Đồng hành cùng ước mơ<br><span class="small">Nơi bạn tỏa sáng</span></h2>
+        <p class="section-desc">Glowi đào tạo kỹ năng dẫn chương trình, giao tiếp và phát triển bản thân. Đội ngũ giảng viên giàu kinh nghiệm, chương trình thực tế, lớp nhỏ, tương tác cao.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-img">
+          <img src="img/img-about/about-index.jpg" alt="About">
+        </div>
+        <div class="about-content">
+          <h3>Hành trình tỏa sáng bắt đầu từ đây</h3>
+          <p>Chúng tôi kết hợp lý thuyết — thực hành — đánh giá để mỗi học viên tiến bộ rõ rệt sau từng buổi học. Ngoài ra, Glowi hỗ trợ kết nối cơ hội biểu diễn và nghề nghiệp cho học viên xuất sắc.</p>
+
+          <div class="features">
+            <div class="feature">
+              <i class="fas fa-medal"></i>
+              <div>
+                <h4>Chuyên nghiệp</h4>
+                <p>Giảng viên dày dặn kinh nghiệm</p>
+              </div>
+            </div>
+            <div class="feature">
+              <i class="fas fa-users"></i>
+              <div>
+                <h4>Thực hành</h4>
+                <p>Lớp nhỏ, nhiều tương tác</p>
+              </div>
+            </div>
+            <div class="feature">
+              <i class="fas fa-certificate"></i>
+              <div>
+                <h4>Chứng nhận</h4>
+                <p>Giấy chứng nhận hoàn thành khoá</p>
+              </div>
+            </div>
+            <div class="feature">
+              <i class="fas fa-handshake"></i>
+              <div>
+                <h4>Hỗ trợ</h4>
+                <p>Kết nối cơ hội việc làm</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section id="courses" class="section courses">
+  <div class="container">
+    <div class="section-head center">
+      <span class="section-tag" style="font-size: 20px;">Khóa học</span>
+      <h2>Chương trình đào tạo toàn diện</h2>
+      <p class="section-desc">Từ cơ bản đến nâng cao, giúp bạn phát triển tối đa năng lực sân khấu & giao tiếp.</p>
+    </div>
+
+    <div class="courses-grid">
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-microphone"></i></div>
+        <a href="mc-su-kien.html" class="course-link"><h3>MC Sự kiện</h3></a>
+        <p>Dẫn chương trình cho hội nghị, tiệc cưới, sinh nhật, sự kiện doanh nghiệp.</p>
+        <div class="course-meta"><span>8 buổi</span><span>Offline</span></div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-video"></i></div>
+        <a href="mc-truyen-hinh.html" class="course-link"><h3>MC Truyền hình & Livestream</h3></a>
+        <p>Kỹ năng dẫn dắt chương trình truyền hình, livestream, YouTube chuyên nghiệp.</p>
+        <div class="course-meta"><span>10 buổi</span><span>Online</span></div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-comments"></i></div>
+        <a href="ky-nang-giao-tiep.html" class="course-link"><h3>Kỹ năng giao tiếp</h3></a>
+        <p>Tự tin thuyết trình, đàm thoại và xây dựng mối quan hệ.</p>
+        <div class="course-meta"><span>6 buổi</span><span>Offline</span></div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-volume-up"></i></div>
+        <a href="luyen-giong-noi.html" class="course-link"><h3>Luyện giọng nói</h3></a>
+        <p>Cải thiện chất giọng, phát âm và sức truyền cảm.</p>
+        <div class="course-meta"><span>6 buổi</span><span>Online/Offline</span></div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-lightbulb"></i></div>
+        <a href="tu-duy-sang-tao.html" class="course-link"><h3>Tư duy sáng tạo</h3></a>
+        <p>Ứng biến tình huống, viết kịch bản, sáng tạo nội dung.</p>
+        <div class="course-meta"><span>5 buổi</span><span>Online</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+  <!-- Instructors -->
+  <section id="instructors" class="section instructors">
+  <div class="container">
+    <div class="section-head center">
+      <span class="section-tag" style="font-size: 20px;">Giảng viên</span>
+      <h2>Đội ngũ giảng viên giàu kinh nghiệm</h2>
+      <p class="section-desc">Những người lái đò dẫn dắt, truyền cảm hứng và thực hành cùng bạn.</p>
+    </div>
+
+    <div class="instructors-grid">
+      <div class="instr-card">
+        <div class="role-tag">MC & Trainer </div>
+        <img src="img/img-giang-vien/trang-anh.jpg" alt="Trang Anh">
+        <div class="instr-info">
+          <h4>TRANG ANH</h4>
+          <p>MC & Trainer (10 năm)</p>
+          <a href="profile-trang-anh.html" class="read-more">Read More</a>
+        </div>
+      </div>
+
+      <div class="instr-card">
+        <div class="role-tag">Giảng viên luyện giọng</div>
+        <img src="img/img-khoanh-khac/anh-13.jpg" alt="Ngọc Thắm">
+        <div class="instr-info">
+          <h4>NGỌC THẮM</h4>
+          <p>Giảng viên luyện giọng</p>
+          <a href="profile-trang-anh.html" class="read-more">Read More</a>
+        </div>
+      </div>
+
+      <div class="instr-card">
+        <div class="role-tag">TRƯỞNG BAN CHUYÊN MÔN</div>
+        <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=600&q=80&auto=format&fit=crop" alt="">
+        <div class="instr-info">
+          <h4>HOÀNG NGỌC HÀ</h4>
+          <p>Giảng viên luyện giọng</p>
+          <button class="read-more">Read More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!--Section blog start-->
+  <section id="blog" class="section blog">
+  <div class="container">
+    <div class="section-head center">
+      <span class="section-tag" style="font-size: 20px;">Bài viết</span>
+      <h2>Góc chia sẻ & cảm hứng MC Nhí</h2>
+      <p class="section-desc">Chia sẻ về hành trình vượt qua nỗi sợ, sự tự ti và vùng an toàn của các bạn nhỏ. Từ những giọng nói run rẩy ban đầu, các em đã học cách yêu giọng nói của mình, tự tin nói lên cảm xúc và lan tỏa năng lượng tích cực trên sân khấu.</p>
+    </div>
+
+    <div class="blog-grid">
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="https://images.unsplash.com/photo-1601297183309-ec9ffcf10cbb?w=800" alt="MC nhí trên sân khấu">
+        </div>
+        <div class="blog-content">
+          <h3><a href="bai-viet-1.html">MC nhí và hành trình chinh phục sân khấu đầu tiên</a></h3>
+          <p>Khám phá câu chuyện của bé Bảo Ngọc – từ một cô bé rụt rè trở thành người dẫn chương trình tự tin và truyền cảm hứng.</p>
+          <div class="blog-meta">
+            <span>📅 05/10/2025</span>
+            <span>👩‍🏫 GLOWI - NÓI ĐỂ TỎA SÁNG</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="https://images.unsplash.com/photo-1596464716121-8b94c2f31d1d?w=800" alt="Lớp học luyện giọng nói">
+        </div>
+        <div class="blog-content">
+          <h3><a href="bai-viet-2.html">5 bí kíp luyện giọng cho MC nhí</a></h3>
+          <p>Bỏ túi 5 mẹo luyện giọng đơn giản giúp giọng nói của bạn nhỏ trở nên trong, khỏe và truyền cảm hơn mỗi ngày.</p>
+          <div class="blog-meta">
+            <span>📅 28/09/2025</span>
+            <span>🎤GLOWI - NÓI ĐỂ TỎA SÁNG</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="https://images.unsplash.com/photo-1606851094158-65b3721edb3b?w=800" alt="MC nhí luyện tập">
+        </div>
+        <div class="blog-content">
+          <h3><a href="bai-viet-3.html">Khóa học “MC nhí tự tin tỏa sáng” mở lớp mới!</a></h3>
+          <p>Chương trình đặc biệt giúp các bé rèn luyện khả năng thuyết trình, giao tiếp và làm chủ sân khấu qua các trò chơi tương tác.</p>
+          <div class="blog-meta">
+            <span>📅 15/09/2025</span>
+            <span>🏫 GLOWI - NÓI ĐỂ TỎA SÁNG</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+  <!--Section blog end-->
+
+  
+  <!--Cảm nhận END-->
+  <!--VOICE START-->
+ <section id="student-voices" class="section student-voices">
+    <div class="container">
+        <div class="section-head center">
+            <span class="section-tag" style="font-size: 20px;">Góc Thực Hành</span>
+            <h2>Lắng nghe giọng nói học viên</h2>
+            <p class="section-desc">Cảm nhận sự tiến bộ và tự tin trong giọng nói của các học viên Glowi qua từng buổi học.</p>
+        </div>
+        <div class="slider-container">
+            <button class="arrow arrow-left" onclick="scrollSlider(-1)">&#10094;</button>
+            <div class="slider-track" id="slider">
+            <div class="voice-card">
+                <img src="img/img-hbg/quynh_1.png" alt="SBD 001– Lã Hương Quỳnh" >
+                <div class="voice-card-content">
+                <h2 style="font-size: 22px;">SBD 001– Lã Hương Quỳnh</h2>
+                <audio controls>
+                    <source src="img/test.mp3" type="audio/mpeg">
+                    Trình duyệt không hỗ trợ.
+                </audio>
+                </div>
+            </div>
+            <div class="voice-card">
+                <img src="img/img-hbg/anhthu.jpg" alt="SBD 002– Nguyễn Anh Thư">
+                <div class="voice-card-content">
+                <h2 style="font-size: 22px;">SBD 002– Nguyễn Anh Thư</h2>
+                <audio controls>
+                    <source src="hoa-binh-goi/anhthu.mp3" type="audio/mpeg">
+                </audio>
+                </div>
+            </div>
+            <div class="voice-card">
+                <img src="img/img-hbg/thuhuyen.jpeg" alt="SBD 003– Lê Thu Huyền">
+                <div class="voice-card-content">
+                <h2 style="font-size: 22px;">SBD 003– Lê Thu Huyền</h2>
+                <audio controls>
+                    <source src="hoa-binh-goi/thuhuyen.mp3" type="audio/mpeg">
+                </audio>
+                </div>
+            </div>
+            <div class="voice-card">
+                <img src="hoa-binh-goi/hbg-quanh.jpg" alt="SBD 004 - Vũ Quỳnh Anh">
+                <div class="voice-card-content">
+                <h2 style="font-size: 22px;">SBD 004 - Vũ Quỳnh Anh</h2>
+                <audio controls>
+                    <source src="hoa-binh-goi/quanh.mp3" type="audio/mpeg">
+                </audio>
+                </div>
+            </div>
+            <div class="voice-card">
+                <img src="img/img-hbg/loc.jpg" alt="SBD 005- Nguyễn Hoàng Lộc">
+                <div class="voice-card-content">
+                <h2 style="font-size: 22px;"> SBD 005- Nguyễn Hoàng Lộc</h2>
+                <audio controls>
+                    <source src="hoa-binh-goi/hoangloc.mp3" type="audio/mpeg">
+                </audio>
+                </div>
+            </div>
+            </div>
+            <button class="arrow arrow-right" onclick="scrollSlider(1)">&#10095;</button>
+        </div>
+        </div>
+
+     </section>
+
+     
+
+
+  <!--VOICE END-->
+
+  <!-- Schedule (dynamic) -->
+  <section id="schedule" class="section schedule">
+    <div class="container">
+      <div class="section-head center">
+        <span class="section-tag" style="font-size: 20px;">Lịch học</span>
+        <h2>Lịch khai giảng & Lớp sắp tới</h2>
+        <p class="section-desc">Chọn lớp phù hợp hoặc đăng ký nhận thông báo khi có lịch mới.</p>
+      </div>
+
+      <div id="scheduleGrid" class="schedule-grid" aria-live="polite">
+        <!-- Filled dynamically from JSONBin -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="section gallery">
+  <div class="container">
+    <div class="section-head center">
+      <span class="section-tag" style="font-size: 20px;">Thư viện</span>
+      <h2>Khoảnh khắc Glowi</h2>
+      <p class="section-desc">Hình ảnh lớp học, buổi biểu diễn và hoạt động của lớp học.</p>
+    </div>
+
+    <div class="gallery-wrapper">
+      <div class="gallery-track">
+        <img src="img/img-khoanh-khac/anh-1.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-2.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-3.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-4.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-5.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-6.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-7-1.png" alt="">
+        <img src="img/img-khoanh-khac/anh-8.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-9.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-10.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-11.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-12.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-13-1.png" alt="">
+        <img src="img/img-khoanh-khac/anh-14.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-15.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-16.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-17.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-18.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-19.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-20.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-21.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh22.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-23.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-24.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-25.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-26.jpg" alt="">
+        <img src="img/img-khoanh-khac/anh-27.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="section testimonials">
+    <div class="container">
+      <div class="section-head center">
+        <span class="section-tag" style="font-size: 20px;">Cảm nhận</span>
+        <h2>Học viên trưởng thành sau khóa học Glowi</h2>
+      </div>
+
+      <div class="testi-grid">
+        <blockquote class="testi">
+          <p>"Khóa học giúp tôi tự tin khi đứng trên sân khấu. Giảng viên tận tâm, thực hành nhiều."</p>
+          <cite>— Lan, học viên</cite>
+        </blockquote>
+        <blockquote class="testi">
+          <p>"Môi trường học năng động, nhiều cơ hội thực hành và biểu diễn."</p>
+          <cite>— Hoàng, học viên</cite>
+        </blockquote>
+        <blockquote class="testi">
+          <p>"Tôi được kèm cặp rõ tiến bộ sau từng buổi." </p>
+          <cite>— Mai, học viên</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Registration -->
+  <section id="contact" class="section contact">
+    <div class="container">
+      <div class="section-head center">
+        <span class="section-tag" style="font-size: 20px;"> Liên hệ</span>
+        <h2>Đăng ký khóa học hoặc nhận tư vấn</h2>
+        <p class="section-desc">Nhập thông tin bên dưới, chúng tôi sẽ liên hệ tư vấn chi tiết (qua email/SMS).</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-card">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h4>Địa chỉ</h4>
+              <p>Cơ sở 1: 814 Đường Láng</p>
+              <p>Cơ sở 2: Tòa S106, Vinhome Smart City</p>
+              <p>Cơ sở 3: Chung cư CT11, Khu đô thị Kim Văn - Kim Lũ</p>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h4>Hotline</h4>
+              <p>098 638 69 61</p>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <h4>Email</h4>
+              <p>glowi.noidetoasang@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="socials">
+            <a href="#" aria-label="facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="youtube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <form id="contactForm" class="contact-form" autocomplete="on">
+          <div class="form-row">
+            <label for="name">Họ và tên</label>
+            <input id="name" name="name" type="text" placeholder="Nguyễn Văn A" required>
+          </div>
+
+          <div class="form-row">
+            <label for="phone">Số điện thoại (Số điện thoại này sẽ thêm học viên vào nhóm Zalo)</label>
+            <input id="phone" name="phone" type="tel" placeholder="+84 123 456 789" required>
+          </div>
+
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com">
+          </div>
+
+          <div class="form-row">
+            <label for="course">Khóa quan tâm</label>
+            <select id="course" name="course" required>
+              <option value="">Chọn khóa</option>
+              <option>MC Sự kiện</option>
+              <option>MC Truyền hình & Livestream</option>
+              <option>Luyện giọng</option>
+              <option>Kỹ năng giao tiếp</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="message">Ghi chú / Câu hỏi</label>
+            <textarea id="message" name="message" placeholder="Bạn muốn học Ca/Cơ sở nào?" rows="4"></textarea>
+          </div>
+
+          <div class="form-row">
+            <button type="submit" class="btn btn-primary full" onclick="sendMail()">Gửi đăng ký</button>
+          </div>
+
+          <p id="formMsg" class="form-msg" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+  <!--QR CODE START-->
+  <!-- Chuyển khoản học phí -->
+<section id="payment" class="section payment">
+  <div class="container center">
+    <span class="section-tag" style="font-size: 20px;">Chuyển khoản học phí</span>
+    <h2>Vui lòng chọn khóa học bạn muốn đăng ký để xem mã QR chuyển khoản tương ứng.</h2>
+    <p>Nội dung chuyển khoản vui lòng ghi email đăng ký để GLOWI duyệt nhé. Ví dụ: Nội dung:trunghieu7305@gmail.com</p>
+
+    <div class="payment-box">
+      <label for="courseSelect">Chọn khóa học:</label>
+      <select id="courseSelect" onchange="showQR()">
+        <option value="">-- Chọn khóa học --</option>
+        <option value="mc_sukien">MC Sự kiện</option>
+        <option value="mc_truyenhinh">MC Truyền hình</option>
+        <option value="luyen_giong">Luyện giọng nói</option>
+      </select>
+
+      <div id="qrBox" class="qr-box" style="display:none;">
+        <img id="qrImage" src="" alt="QR chuyển khoản">
+        <p id="qrText"></p>
+      </div>
+    </div>
+  </div>
+</section>
+  <!--QR CODE END-->
+
+  <!-- Admin section -->
+  <section id="admin" class="section">
+    <div class="container">
+      <div class="section-head center">
+        <span class="section-tag" style="font-size: 20px;">Admin</span>
+        <h2>Quản lý đăng ký (Admin)</h2>
+        <p class="section-desc">Đăng nhập để duyệt / hủy / xóa đăng ký. (Demo: password-based; thay bằng Firebase Auth khi production).</p>
+      </div>
+
+      <div style="max-width:900px;margin:0 auto">
+        <div style="display:flex;gap:12px;align-items:center;">
+          <input id="adminPass" type="password" placeholder="Nhập password admin (demo)" style="padding:10px;border-radius:8px;border:1px solid #ddd;flex:1">
+          <button id="adminLoginBtn" class="btn btn-primary">Đăng nhập</button>
+          <button id="adminLogoutBtn" class="btn btn-outline" style="display:none">Đăng xuất</button>
+        </div>
+
+        <div id="adminPanel" aria-live="polite">
+          <h4 style="margin-top:8px">Danh sách đăng ký</h4>
+          <div id="registrationsList" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="col about-foot">
+        <h3>GLOWI</h3>
+        <p>Trung tâm đào tạo MC & kỹ năng biểu diễn. Nói để tỏa sáng.</p>
+      </div>
+
+      <div class="col links-foot">
+        <h4>Khóa học</h4>
+        <ul>
+          <li><a href="#courses">MC Sự kiện</a></li>
+          <li><a href="#courses">MC Truyền hình</a></li>
+          <li><a href="#courses">Luyện giọng</a></li>
+        </ul>
+      </div>
+
+      <div class="col contact-foot">
+        <h4>Liên hệ</h4>
+        <p>glowi.noidetoasang@gmail.com</p>
+        <p>098 638 69 61</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> GLOWI All rights reserved <a>| Raise your voice, light your world</a></p>
+    </div>
+  </footer>
+  <script src="js/countdown.js"></script>
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+
+  <script>
+    // ====== CONFIG - PLEASE REPLACE THESE VALUES WITH YOUR KEYS ======
+    const JSONBIN_BIN_ID = "68e6016cae596e708f0a1adf"; // ex: "687942386be756241aa5629c"
+    const JSONBIN_MASTER_KEY = "$2a$10$MYuaIOkvWBJ0TWZ8yJlRburuiXo4CSClQgly64RsXg5Yk5aLkRwFS"; // X-Master-Key
+    // JSONBin endpoints used: GET https://api.jsonbin.io/v3/b/{binId}/latest and PUT https://api.jsonbin.io/v3/b/{binId}
+    const EMAILJS_USER_ID = "REPLACE_EMAILJS_USERID";
+    const EMAILJS_SERVICE_ID = "REPLACE_EMAILJS_SERVICEID";
+    const EMAILJS_TEMPLATE_ID = "REPLACE_EMAILJS_TEMPLATEID";
+    // admin demo password (change before production)
+    const ADMIN_DEMO_PASSWORD = "glowi";
+
+    // ====== INIT EmailJS (if user filled in) ======
+    if (EMAILJS_USER_ID && EMAILJS_USER_ID !== "REPLACE_EMAILJS_USERID") {
+      emailjs.init(EMAILJS_USER_ID);
+    }
+
+    // ====== Utilities ======
+    function el(sel){return document.querySelector(sel)}
+    function formatDate(d){ // format dd/mm/yyyy
+      const D = new Date(d);
+      if (isNaN(D)) return d;
+      const dd = String(D.getDate()).padStart(2,'0');
+      const mm = String(D.getMonth()+1).padStart(2,'0');
+      const yy = D.getFullYear();
+      return `${dd}/${mm}/${yy}`;
+    }
+    function showMsg(msg, success=true){
+      const m = el('#formMsg');
+      m.textContent = msg;
+      m.classList.add('visible');
+      m.style.color = success ? '#fff' : '#ffeeee';
+      setTimeout(()=> m.classList.remove('visible'), 7000);
+    }
+
+    // ====== JSONBin helpers ======
+    async function fetchRegistrationsFromJSONBin(){
+      if (!JSONBIN_BIN_ID || JSONBIN_BIN_ID.startsWith('REPLACE')) {
+        // no JSONBin configured -> fallback to localStorage
+        const local = localStorage.getItem('glowi_regs');
+        return local ? JSON.parse(local) : [];
+      }
+      try {
+        const resp = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+  headers: {
+    'X-Master-Key': JSONBIN_MASTER_KEY
+  }
+});
+
+        if (!resp.ok) throw new Error('Không thể đọc JSONBin: ' + resp.status);
+        const data = await resp.json();
+        // Expect stored content to be an object like {registrations: [...], schedule: [...]}
+        return data && data.record && (data.record.registrations || []);
+      } catch(err){
+        console.warn('fetchRegistrationsFromJSONBin failed', err);
+        // fallback local
+        const local = localStorage.getItem('glowi_regs');
+        return local ? JSON.parse(local) : [];
+      }
+    }
+
+    async function fetchFullBinRecord(){
+      // returns the record object or null
+      if (!JSONBIN_BIN_ID || JSONBIN_BIN_ID.startsWith('REPLACE')) {
+        const raw = localStorage.getItem('glowi_full_bin');
+        return raw ? JSON.parse(raw) : {registrations: [], schedule: defaultSchedule()};
+      }
+      try {
+        const resp = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+  headers: {
+    'X-Master-Key': JSONBIN_MASTER_KEY
+  }
+});
+
+        if (!resp.ok) throw new Error('Fetch bin failed');
+        const data = await resp.json();
+        return data.record || {registrations: [], schedule: defaultSchedule()};
+      } catch(err){
+        console.warn('fetchFullBinRecord err', err);
+        const raw = localStorage.getItem('glowi_full_bin');
+        return raw ? JSON.parse(raw) : {registrations: [], schedule: defaultSchedule()};
+      }
+    }
+
+    async function putFullBinRecord(record){
+      // record: object to PUT to JSONBin
+      if (!JSONBIN_BIN_ID || JSONBIN_BIN_ID.startsWith('REPLACE') || !JSONBIN_MASTER_KEY || JSONBIN_MASTER_KEY.startsWith('REPLACE')) {
+        // fallback to localStorage
+        localStorage.setItem('glowi_full_bin', JSON.stringify(record));
+        localStorage.setItem('glowi_regs', JSON.stringify(record.registrations || []));
+        return {ok:true, fallback:true};
+      }
+      try {
+        const resp = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': JSONBIN_MASTER_KEY
+          },
+          body: JSON.stringify(record)
+        });
+        if (!resp.ok) {
+          const t = await resp.text();
+          throw new Error('PUT failed: ' + resp.status + ' ' + t);
+        }
+        const data = await resp.json();
+        return {ok:true, data};
+      } catch(err){
+        console.warn('putFullBinRecord err', err);
+        // fallback:
+        localStorage.setItem('glowi_full_bin', JSON.stringify(record));
+        localStorage.setItem('glowi_regs', JSON.stringify(record.registrations || []));
+        return {ok:false, error:err};
+      }
+    }
+
+    // ====== Default schedule (used when no bin yet) ======
+    function defaultSchedule(){
+      return [
+        {id: 's1', title: 'MC Sự kiện', date: '2025-10-12', mode: 'Offline', location: 'Hà Nội', seats: 20},
+        {id: 's2', title: 'MC Truyền hình — Khai giảng', date: '2025-11-05', mode: 'Online', location: 'Online', seats: 40},
+        {id: 's3', title: 'Luyện giọng nói', date: '2025-10-20', mode: 'Offline', location: 'Hà Nội', seats: 18}
+      ];
+    }
+
+    // ====== Render schedule (public) ======
+    async function renderSchedule(){
+      const grid = el('#scheduleGrid');
+      grid.innerHTML = '<p class="small-muted">Đang tải lịch...</p>';
+      const bin = await fetchFullBinRecord();
+      const schedule = (bin && bin.schedule) ? bin.schedule : defaultSchedule();
+      grid.innerHTML = '';
+      schedule.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'sched-card';
+        card.innerHTML = `
+          <h4>${escapeHtml(s.title)} — Khai giảng</h4>
+          <p><strong>Ngày:</strong> ${formatDate(s.date)} — <strong>Ca:</strong> ${s.time || 'Xem chi tiết'}</p>
+          <p><strong>Địa điểm:</strong> ${escapeHtml(s.location || s.mode)}</p>
+          <p class="small-muted">Chỗ: ${s.seats ?? 'Không xác định'}</p>
+          <a class="btn-sm" href="#contact" data-prefill='${escapeHtml(JSON.stringify(s))}'>Đăng ký</a>
+        `;
+        grid.appendChild(card);
+      });
+
+      // prefilling: when user clicks Đăng ký from schedule, preselect course field
+      grid.querySelectorAll('a[data-prefill]').forEach(a=>{
+        a.addEventListener('click', (ev) => {
+          try {
+            const obj = JSON.parse(a.getAttribute('data-prefill'));
+            const sel = el('#course');
+            if (sel) {
+              // try to select a matching option
+              for (let i=0;i<sel.options.length;i++){
+                if (sel.options[i].text.includes(obj.title) || sel.options[i].text.includes(obj.title.split('—')[0].trim())){
+                  sel.selectedIndex = i;
+                  break;
+                }
+              }
+            }
+            // scroll to form
+            setTimeout(()=> document.getElementById('name').focus(), 300);
+          } catch(e){}
+        });
+      });
+    }
+
+    // ====== Registrations (admin list) ======
+    async function renderRegistrations(){
+      const list = el('#registrationsList');
+      list.innerHTML = '<p class="small-muted">Đang tải đăng ký...</p>';
+      const full = await fetchFullBinRecord();
+      const regs = (full && full.registrations) ? full.registrations.slice().reverse() : [];
+      if (regs.length===0) {
+        list.innerHTML = '<p class="small-muted">Chưa có đăng ký nào.</p>';
+        return;
+      }
+      list.innerHTML = '';
+      regs.forEach(r=>{
+        const row = document.createElement('div');
+        row.className = 'reg-row';
+        row.innerHTML = `
+          <div class="reg-info">
+            <strong>${escapeHtml(r.name || '—')}</strong> <span class="chip">${escapeHtml(r.course || '—')}</span>
+            <div class="small-muted">${escapeHtml(r.phone || '')} • ${escapeHtml(r.email || '')}</div>
+            <div class="small-muted">Ngày đăng ký: ${formatDate(r.createdAt || r.date || new Date())} • Trạng thái: ${escapeHtml(r.status || 'Chưa xử lý')}</div>
+            <div style="margin-top:6px">${escapeHtml(r.note || '')}</div>
+          </div>
+          <div style="min-width:170px;display:flex;gap:8px;flex-direction:column">
+            <button class="btn-sm" data-action="approve" data-id="${r.id}">Duyệt</button>
+            <button style="background:#f3f3f3;color:#333;border:none;padding:8px;border-radius:8px" data-action="cancel" data-id="${r.id}">Hủy</button>
+            <button style="background:#fff;color:#d00;border:1px solid #f4d0d0;padding:8px;border-radius:8px" data-action="delete" data-id="${r.id}">Xóa</button>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      list.querySelectorAll('button[data-action]').forEach(btn=>{
+        btn.addEventListener('click', async (ev)=>{
+          const action = btn.getAttribute('data-action');
+          const id = btn.getAttribute('data-id');
+          if (action==='delete') {
+            if (!confirm('Bạn có chắc muốn xóa đăng ký này?')) return;
+          }
+          await handleAdminAction(action, id);
+          await renderRegistrations();
+          await renderSchedule(); // in case seats/other things change
+        });
+      });
+    }
+
+    emailjs.init("y9j5yVQLZgW_pPdoP");
+
+async function handleAdminAction(action, id) {
+  const full = await fetchFullBinRecord();
+  full.registrations = full.registrations || [];
+  const idx = full.registrations.findIndex(r => r.id === id);
+  if (idx === -1) {
+    alert('Không tìm thấy đăng ký.');
+    return;
+  }
+
+  const reg = full.registrations[idx];
+
+  // Cập nhật trạng thái
+  if (action === 'approve') reg.status = 'Đã duyệt';
+  if (action === 'cancel') reg.status = 'Đã hủy';
+  if (action === 'delete') full.registrations.splice(idx, 1);
+
+  await putFullBinRecord(full);
+
+  // === GỬI EMAIL KHI DUYỆT ===
+  if (action === 'approve' && reg.email) {
+    try {
+      const templateParams = {
+        to_name: reg.name || 'bạn',
+        to_email: reg.email,
+        phone: reg.phone || '',
+        course: reg.course || '',
+        message: reg.note || '',
+        status: 'Đã duyệt'
+      };
+
+      // Gửi mail xác nhận qua EmailJS
+      await emailjs.send("service_8drej45", "template_7wkfpgt", templateParams);
+
+      console.log('✅ GLOWI đã gửi EMAIL duyệt cho ', reg.email);
+      alert('✅ Đã gửi mail xác nhận cho ' + reg.name);
+    } catch (err) {
+      console.warn('❌ Lỗi gửi email:', err);
+      alert('⚠️ Gửi email thất bại, xem Console để biết thêm chi tiết.');
+    }
+  }
+}
+
+    // ====== Form submit (student) ======
+    document.getElementById('contactForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const name = el('#name').value.trim();
+      const phone = el('#phone').value.trim();
+      const email = el('#email').value.trim();
+      const course = el('#course').value;
+      const note = el('#message').value.trim();
+      if (!name || !phone || !course) {
+        showMsg('Vui lòng điền tên, số điện thoại và chọn khóa.', false);
+        return;
+      }
+      // build registration object
+      const reg = {
+        id: 'r_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+        name, phone, email, course, note,
+        createdAt: new Date().toISOString(),
+        status: 'Chưa xử lý'
+      };
+
+      // save to JSONBin (fetch full record, push, put)
+      const full = await fetchFullBinRecord();
+      full.registrations = full.registrations || [];
+      full.registrations.push(reg);
+      const put = await putFullBinRecord(full);
+      if (put.ok) {
+        showMsg('✅ Cám ơn ' + (name||'Bạn') + '! Chúng tôi đã nhận được đăng ký. 💖💖💖');
+        document.getElementById('contactForm').reset();
+        // re-render admin & schedule
+        await renderRegistrations();
+        await renderSchedule();
+        // try sending email via EmailJS
+        if (EMAILJS_USER_ID && EMAILJS_USER_ID !== "REPLACE_EMAILJS_USERID" &&
+            EMAILJS_SERVICE_ID && EMAILJS_SERVICE_ID !== "REPLACE_EMAILJS_SERVICEID" &&
+            EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== "REPLACE_EMAILJS_TEMPLATEID") {
+          try {
+            const templateParams = {
+              to_name: name,
+              to_email: email,
+              phone: phone,
+              course: course,
+              message: note
+            };
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+              .then(() => console.log('EmailJS sent'), err => console.warn('EmailJS err', err));
+          } catch(err){ console.warn('EmailJS exception', err); }
+        } else {
+          console.info('EmailJS not configured; skip sending email.');
+        }
+      } else {
+        showMsg('Có lỗi khi lưu đăng ký (sẽ lưu tạm trên trình duyệt).', false);
+        // fallback: already saved to localStorage in putFullBinRecord
+      }
+    });
+
+    // ====== Admin login (demo) ======
+    el('#adminLoginBtn').addEventListener('click', async ()=>{
+      const pw = el('#adminPass').value;
+      if (pw === ADMIN_DEMO_PASSWORD) {
+        el('#adminPanel').style.display = 'block';
+        el('#adminLogoutBtn').style.display = 'inline-block';
+        el('#adminLoginBtn').style.display = 'none';
+        el('#adminPass').style.display = 'none';
+        await renderRegistrations();
+        // scroll
+        setTimeout(()=> location.hash = '#admin', 100);
+      } else {
+        alert('Password không đúng (demo).');
+      }
+    });
+    el('#adminLogoutBtn').addEventListener('click', ()=>{
+      el('#adminPanel').style.display = 'none';
+      el('#adminLogoutBtn').style.display = 'none';
+      el('#adminLoginBtn').style.display = 'inline-block';
+      el('#adminPass').style.display = 'inline-block';
+      el('#adminPass').value = '';
+    });
+
+    // ====== small helpers & init ======
+    function escapeHtml(s){
+      if (!s && s!==0) return '';
+      return String(s).replace(/[&<>"'`]/g, c=>({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;', '`':'&#96;'
+      })[c]);
+    }
+
+    // menu toggle & smooth behaviors
+    document.getElementById('menuToggle').addEventListener('click', ()=> el('#nav').classList.toggle('open'));
+    document.querySelectorAll('.nav-list a').forEach(a => a.addEventListener('click', ()=> el('#nav').classList.remove('open')));
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // initial render
+    (async function init(){
+      // ensure there's a base bin record if empty
+      const full = await fetchFullBinRecord();
+      if (!full || (!full.schedule && !full.registrations)) {
+        const base = {registrations: [], schedule: defaultSchedule()};
+        await putFullBinRecord(base);
+      }
+      await renderSchedule();
+      await renderRegistrations();
+    })();
+  </script>
+  <script>
+    const intro = document.getElementById('intro');
+    const main = document.getElementById('main'); 
+    const video = document.getElementById('introVideo');
+
+    
+    const navType = performance.getEntriesByType("navigation")[0]?.type;
+    const shouldSkipIntro = sessionStorage.getItem("skipIntro") === "true";
+
+    
+    if (navType === "back_forward" || shouldSkipIntro) {
+        intro.style.display = 'none';
+        if (main) main.style.display = 'block'; 
+        document.body.style.overflow = 'auto';
+
+        // Xóa cờ đi để lần sau vào lại web bình thường vẫn có intro
+        sessionStorage.removeItem("skipIntro"); 
+    } else {
+        // Ngược lại: luôn phát intro
+        video.addEventListener('ended', () => {
+            intro.style.display = 'none';
+            if (main) main.style.display = 'block';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Fallback sau 11 giây
+        setTimeout(() => {
+            if (intro.style.display !== 'none') {
+                intro.style.display = 'none';
+                if (main) main.style.display = 'block';
+                document.body.style.overflow = 'auto';
+            }
+        }, 15000);
+    }
+</script>
+<script>
+  const slider = document.getElementById('slider');
+  let currentSlide = 0;
+
+  function scrollSlider(direction) {
+    const cardWidth = 250 + 24; // voice-card width + margin (12px each side)
+    const visibleCards = Math.min(4, Math.floor(document.querySelector('.slider-container').offsetWidth / cardWidth));
+    const totalCards = slider.children.length;
+    const maxSlide = Math.max(0, totalCards - visibleCards);
+
+    currentSlide += direction;
+
+    if (currentSlide < 0) currentSlide = 0;
+    if (currentSlide > maxSlide) currentSlide = maxSlide;
+
+    slider.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+  }
+</script>
+<!-- EmailJS SDK -->
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  // 🔹 Khởi tạo EmailJS
+  (function(){
+    emailjs.init("y9j5yVQLZgW_pPdoP"); // 👉 Thay bằng public key thật của bạn
+  })();
+
+  // 🔒 Khóa phím Enter trong các ô input form
+  document.addEventListener("DOMContentLoaded", function() {
+    const formInputs = document.querySelectorAll("#name, #phone, #email, #course, #message");
+
+    formInputs.forEach(input => {
+      input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+          e.preventDefault(); // chặn hành động mặc định
+          return false;
+        }
+      });
+    });
+  });
+
+  function sendMail() {
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const course = document.getElementById("course").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    // 🔸 Kiểm tra xem có ô nào bị bỏ trống không
+    if (!name || !phone || !email || !course || !message) {
+      alert("⚠️ Vui lòng điền đầy đủ tất cả các thông tin trước khi gửi!");
+      return;
+    }
+
+    // 🔸 Kiểm tra định dạng email (đơn giản)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      alert("⚠️ Vui lòng nhập địa chỉ email hợp lệ!");
+      return;
+    }
+
+    // 🔹 Nếu mọi thứ hợp lệ thì gửi mail
+    const parms = { name, phone, email, course, message };
+
+    emailjs.send("service_8drej45", "template_jxrmcy5", parms)
+      .then(() => {
+        alert("✅ Email đã được gửi đến GLOWI thành công. Vui lòng chờ xác nhận từ GLOWI nhé!");
+      })
+      .catch(() => {
+        alert("❌ Gửi thất bại, vui lòng kiểm tra lại kết nối hoặc Email.");
+      });
+  }
+</script>
+
+<script>
+  let paused = false;
+galleryGrid.addEventListener('mouseenter', ()=> paused = true);
+galleryGrid.addEventListener('mouseleave', ()=> paused = false);
+  // === Auto slide cho gallery ===
+  const galleryGrid = document.querySelector('.gallery-grid');
+  if (galleryGrid) {
+    let scrollAmount = 0;
+    const slideSpeed = 1; // tốc độ (px mỗi frame)
+    const resetDelay = 500; // ms dừng lại khi hết ảnh
+
+    function autoSlide() {
+      if (!galleryGrid) return;
+      scrollAmount += slideSpeed;
+      galleryGrid.scrollLeft = scrollAmount;
+
+      // khi trượt hết thì quay lại đầu
+      if (galleryGrid.scrollLeft + galleryGrid.clientWidth >= galleryGrid.scrollWidth) {
+        setTimeout(() => {
+          galleryGrid.scrollTo({ left: 0, behavior: 'smooth' });
+          scrollAmount = 0;
+        }, resetDelay);
+      }
+      requestAnimationFrame(autoSlide);
+    }
+
+    requestAnimationFrame(autoSlide);
+  }
+</script>
+<script>
+  // Nhân đôi ảnh để cuộn mượt không bị đứt
+  const track = document.querySelector('.gallery-track');
+  if (track) {
+    track.innerHTML += track.innerHTML; // copy thêm 1 lần ảnh để lặp trơn tru
+  }
+</script>
+<script>
+function showQR() {
+  const course = document.getElementById('courseSelect').value;
+  const qrBox = document.getElementById('qrBox');
+  const qrImage = document.getElementById('qrImage');
+  const qrText = document.getElementById('qrText');
+
+  const qrData = {
+    mc_sukien: {
+      img: "https://i.imgur.com/z6sUZzH.png", // 🔁 Thay ảnh QR thật của bạn
+      text: "Khoá MC Sự kiện — chuyển khoản đến: 0123456789 (Ngân hàng ACB - GLOWI)"
+    },
+    mc_truyenhinh: {
+      img: "https://i.imgur.com/nzO7AaZ.png", // 🔁 Thay QR thật
+      text: "Khoá MC Truyền hình — chuyển khoản đến: 0123456789 (Ngân hàng ACB - GLOWI)"
+    },
+    luyen_giong: {
+      img: "https://i.imgur.com/yW0x2Xw.png", // 🔁 Thay QR thật
+      text: "Khoá Luyện giọng — chuyển khoản đến: 0123456789 (Ngân hàng ACB - GLOWI)"
+    }
+  };
+
+  if (qrData[course]) {
+    qrImage.src = qrData[course].img;
+    qrText.textContent = qrData[course].text;
+    qrBox.style.display = 'flex';
+  } else {
+    qrBox.style.display = 'none';
+  }
+}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const intro = document.getElementById("intro");
+  const videoDesktop = document.getElementById("videoDesktop");
+  const videoMobile = document.getElementById("videoMobile");
+
+  // Xác định video nào đang được hiển thị
+  const activeVideo = window.innerWidth <= 768 ? videoMobile : videoDesktop;
+
+  // Khi video chạy xong thì ẩn intro
+  activeVideo.addEventListener("ended", hideIntro);
+
+  // Nếu video không tự chạy (do chặn autoplay), fallback sau 7s
+  const fallbackTimer = setTimeout(hideIntro, 7000);
+
+  // Hàm ẩn intro
+  function hideIntro() {
+    clearTimeout(fallbackTimer); // tránh gọi 2 lần
+    intro.classList.add("hidden");
+    setTimeout(() => {
+      intro.remove();
+    }, 1000);
+  }
+
+  // Một số trình duyệt mobile không phát tự động => cần bắt sự kiện play
+  activeVideo.addEventListener("play", () => {
+    console.log("Intro video playing...");
+  });
+
+  // Nếu vẫn không play, thử play() thủ công
+  activeVideo.play().catch(() => {
+    console.warn("Autoplay bị chặn, dùng fallback timer");
+  });
+});
+</script>
+<script>
+document.querySelectorAll('.read-more').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault(); // Ngăn chuyển trang mặc định
+    const href = link.getAttribute('href'); // Ví dụ: profile-trang-anh.html
+
+    
+    const isMobileOrTablet = /Mobi|Android|iPhone|iPad|Tablet/i.test(navigator.userAgent);
+
+  
+    const target = isMobileOrTablet
+      ? href.replace('.html', '-mobile.html')   // Mobile & iPad dùng chung
+      : href.replace('.html', '-desktop.html'); // Laptop dùng riêng
+
+  
+    window.location.href = target;
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

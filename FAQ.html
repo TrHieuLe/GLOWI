@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Câu hỏi thường gặp - GLOWI</title>
+  <link rel="icon" href="img/img-logo/chot-logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff5f7 0%, #ffe8f0 100%);
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .faq-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    /* Header */
+    .faq-header {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .faq-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff6b9d 0%, #ff4c8b 100%);
+      color: white;
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(255, 76, 139, 0.3);
+    }
+
+    .faq-header h2 {
+      font-size: 2.5rem;
+      color: #2d2d2d;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .faq-header .highlight {
+      background: linear-gradient(135deg, #ff6b9d 0%, #ff4c8b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .faq-desc {
+      color: #666;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Search Box */
+    .faq-search {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      animation: fadeIn 1s ease;
+    }
+
+    .faq-search input {
+      width: 100%;
+      padding: 18px 55px 18px 25px;
+      border: 2px solid #ffcce0;
+      border-radius: 50px;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+      background: white;
+      box-shadow: 0 5px 20px rgba(255, 76, 139, 0.1);
+    }
+
+    .faq-search input:focus {
+      border-color: #ff4c8b;
+      box-shadow: 0 8px 25px rgba(255, 76, 139, 0.2);
+    }
+
+    .faq-search i {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ff6b9d;
+      font-size: 20px;
+    }
+
+    /* FAQ Container */
+    .faq-container {
+      display: grid;
+      gap: 20px;
+      animation: fadeInUp 1s ease;
+    }
+
+    /* FAQ Item */
+    .faq-item {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 8px 30px rgba(255, 76, 139, 0.15);
+      border-color: #ffcce0;
+      transform: translateY(-2px);
+    }
+
+    .faq-item.active {
+      border-color: #ff6b9d;
+      box-shadow: 0 10px 35px rgba(255, 76, 139, 0.2);
+    }
+
+    /* Question */
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 30px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .faq-question::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #ff6b9d 0%, #ff4c8b 100%);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-question::before {
+      transform: scaleY(1);
+    }
+
+    .faq-question:hover {
+      background: linear-gradient(90deg, #fff5f9 0%, transparent 100%);
+    }
+
+    .faq-q-text {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex: 1;
+    }
+
+    .faq-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b9d 0%, #ff4c8b 100%);
+      color: white;
+      font-size: 20px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(255, 76, 139, 0.3);
+    }
+
+    .faq-q-text h3 {
+      font-size: 1.1rem;
+      color: #2d2d2d;
+      font-weight: 600;
+      margin: 0;
+      transition: color 0.3s ease;
+    }
+
+    .faq-item.active .faq-q-text h3 {
+      color: #ff4c8b;
+    }
+
+    .faq-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #fff0f6;
+      color: #ff6b9d;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-toggle {
+      background: linear-gradient(135deg, #ff6b9d 0%, #ff4c8b 100%);
+      color: white;
+      transform: rotate(180deg);
+    }
+
+    /* Answer */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      background: linear-gradient(180deg, #fffafc 0%, white 100%);
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding: 0 30px 25px 30px;
+    }
+
+    .faq-answer-content {
+      padding-left: 60px;
+      color: #555;
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .faq-answer-content p {
+      margin-bottom: 12px;
+    }
+
+    .faq-answer-content ul {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+
+    .faq-answer-content li {
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 10px;
+    }
+
+    .faq-answer-content li::before {
+      content: '💖';
+      position: absolute;
+      left: -15px;
+      font-size: 12px;
+    }
+
+    .faq-answer-content strong {
+      color: #ff4c8b;
+      font-weight: 600;
+    }
+
+    /* Categories */
+    .faq-categories {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .category-btn {
+      padding: 10px 24px;
+      border-radius: 25px;
+      border: 2px solid #ffcce0;
+      background: white;
+      color: #ff6b9d;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background: linear-gradient(135deg, #ff6b9d 0%, #ff4c8b 100%);
+      color: white;
+      border-color: #ff4c8b;
+      box-shadow: 0 4px 15px rgba(255, 76, 139, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Contact CTA */
+    .faq-cta {
+      text-align: center;
+      margin-top: 60px;
+      padding: 40px 30px;
+      background: linear-gradient(135deg, #ff6b9d 0%, #ff4c8b 100%);
+      border-radius: 25px;
+      color: white;
+      box-shadow: 0 10px 40px rgba(255, 76, 139, 0.3);
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .faq-cta h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .faq-cta p {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+      opacity: 0.95;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 16px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cta-btn-primary {
+      background: white;
+      color: #ff4c8b;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .cta-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .cta-btn-outline:hover {
+      background: white;
+      color: #ff4c8b;
+      transform: translateY(-3px);
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .faq-header h2 {
+        font-size: 2rem;
+      }
+
+      .faq-question {
+        padding: 20px;
+      }
+
+      .faq-q-text h3 {
+        font-size: 1rem;
+      }
+
+      .faq-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+
+      .faq-answer-content {
+        padding-left: 0;
+      }
+
+      .faq-item.active .faq-answer {
+        padding: 0 20px 20px 20px;
+      }
+
+      .faq-cta h3 {
+        font-size: 1.5rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .category-btn {
+        font-size: 13px;
+        padding: 8px 18px;
+      }
+    }
+
+    /* No Results */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      display: none;
+    }
+
+    .no-results.show {
+      display: block;
+    }
+
+    .no-results i {
+      font-size: 80px;
+      color: #ffcce0;
+      margin-bottom: 20px;
+    }
+
+    .no-results h3 {
+      font-size: 1.5rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .no-results p {
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <section class="faq-section">
+    <!-- Header -->
+    <div class="faq-header">
+      <span class="faq-tag">💬 FAQ</span>
+      <h2>Câu hỏi <span class="highlight">thường gặp</span></h2>
+      <p class="faq-desc">Tìm câu trả lời nhanh chóng cho những thắc mắc phổ biến về các khóa học tại GLOWI</p>
+    </div>
+    <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Glowi logo" class="logo-img" onerror="this.style.display='none'">
+        <a href="#" class="logo-text">GLOWI</a>
+      </div>
+
+      <button id="menuToggle" class="menu-toggle" aria-label="Mở menu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="nav" id="nav">
+        <ul class="nav-list">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="index.html#about">Giới thiệu</a></li>
+          <li><a href="index.html#courses">Khóa học</a></li>
+          <li><a href="index.html#instructors">Giảng viên</a></li>
+          <li><a href="index.html#testimonials">Cảm nhận</a></li>
+          <li><a href="index.html#schedule">Lịch học</a></li>
+          <li><a href="FAQ.html">Câu hỏi thường gặp</a></li>
+          <li><a href="index.html#contact" class="cta">Đăng ký</a></li>
+          <li><a href="index.html#admin" id="adminLink">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+    <!-- Search -->
+    <div class="faq-search">
+      <input type="text" id="faqSearch" placeholder="Tìm kiếm câu hỏi..." autocomplete="off">
+      <i class="fas fa-search"></i>
+    </div>
+
+    <!-- Categories -->
+    <div class="faq-categories">
+      <button class="category-btn active" data-category="all">Tất cả</button>
+      <button class="category-btn" data-category="course">Khóa học</button>
+      <button class="category-btn" data-category="payment">Học phí</button>
+      <button class="category-btn" data-category="schedule">Lịch học</button>
+      <button class="category-btn" data-category="certificate">Chứng nhận</button>
+    </div>
+
+    <!-- FAQ Container -->
+    <div class="faq-container" id="faqContainer">
+      <!-- FAQ Items will be rendered here -->
+    </div>
+
+    <!-- No Results -->
+    <div class="no-results" id="noResults">
+      <i class="fas fa-search"></i>
+      <h3>Không tìm thấy kết quả</h3>
+      <p>Vui lòng thử từ khóa khác hoặc liên hệ trực tiếp với chúng tôi</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="faq-cta">
+      <h3>Nếu còn thắc mắc? 🤔</h3>
+      <p>Đừng ngại liên hệ với chúng tôi, GLOWI luôn sẵn sàng tư vấn!</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="cta-btn cta-btn-primary">
+          <i class="fas fa-phone"></i>
+          Gọi ngay: 098 638 69 61
+        </a>
+        <a href="mailto:glowi.noidetoasang@gmail.com" class="cta-btn cta-btn-outline">
+          <i class="fas fa-envelope"></i>
+          Gửi email
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // FAQ Data
+    const faqData = [
+      {
+        id: 1,
+        category: 'course',
+        icon: 'fa-graduation-cap',
+        question: 'GLOWI có những khóa học nào?',
+        answer: `<p>GLOWI cung cấp đa dạng các khóa học phù hợp với mọi nhu cầu:</p>
+          <ul>
+            <li><strong>MC Sự kiện:</strong> Dẫn chương trình hội nghị, tiệc cưới, sinh nhật (8 buổi - Offline)</li>
+            <li><strong>MC Truyền hình & Livestream:</strong> Kỹ năng dẫn dắt chuyên nghiệp (10 buổi - Online)</li>
+            <li><strong>Kỹ năng giao tiếp:</strong> Tự tin thuyết trình và xây dựng mối quan hệ (6 buổi)</li>
+            <li><strong>Luyện giọng nói:</strong> Cải thiện chất giọng và phát âm (6 buổi)</li>
+            <li><strong>Tư duy sáng tạo:</strong> Ứng biến tình huống và viết kịch bản (5 buổi)</li>
+          </ul>`
+      },
+      {
+        id: 2,
+        category: 'course',
+        icon: 'fa-clock',
+        question: 'Thời gian học của mỗi khóa là bao lâu?',
+        answer: `<p>Thời gian học linh hoạt tùy theo từng khóa:</p>
+          <ul>
+            <li>Khóa cơ bản: <strong>5-6 buổi</strong> (1.5 tháng)</li>
+            <li>Khóa nâng cao: <strong>8-10 buổi</strong> (2-2.5 tháng)</li>
+            <li>Mỗi buổi học: <strong>2-2.5 giờ</strong></li>
+            <li>Lịch học: Tối thứ 3, 5, 7 hoặc Sáng thứ 7, CN (tùy chọn)</li>
+          </ul>
+          <p>Bạn có thể linh hoạt chọn ca học phù hợp với lịch trình của mình!</p>`
+      },
+      {
+        id: 3,
+        category: 'payment',
+        icon: 'fa-money-bill-wave',
+        question: 'Học phí các khóa học là bao nhiêu?',
+        answer: `<p>Học phí phụ thuộc vào loại khóa học:</p>
+          <ul>
+            <li><strong>MC Sự kiện:</strong> 3.500.000 VNĐ (8 buổi)</li>
+            <li><strong>MC Truyền hình:</strong> 4.200.000 VNĐ (10 buổi)</li>
+            <li><strong>Kỹ năng giao tiếp:</strong> 2.800.000 VNĐ (6 buổi)</li>
+            <li><strong>Luyện giọng nói:</strong> 2.500.000 VNĐ (6 buổi)</li>
+          </ul>
+          <p><strong>🎁 Ưu đãi:</strong> Giảm 15% khi đăng ký trước 1 tuần. Học nhóm 3 người trở lên giảm thêm 10%!</p>`
+      },
+      {
+        id: 4,
+        category: 'payment',
+        icon: 'fa-credit-card',
+        question: 'Các hình thức thanh toán học phí?',
+        answer: `<p>GLOWI hỗ trợ đa dạng phương thức thanh toán:</p>
+          <ul>
+            <li><strong>Chuyển khoản ngân hàng:</strong> Quét mã QR hoặc chuyển khoản thủ công</li>
+            <li><strong>Tiền mặt:</strong> Thanh toán trực tiếp tại văn phòng</li>
+            <li><strong>Ví điện tử:</strong> Momo, ZaloPay, VNPay</li>
+            <li><strong>Trả góp:</strong> Có thể chia 2 đợt (50% khi đăng ký, 50% sau buổi học thứ 3)</li>
+          </ul>
+          <p><em>💡 Nội dung chuyển khoản vui lòng ghi: Email + Tên học viên</em></p>`
+      },
+      {
+        id: 5,
+        category: 'schedule',
+        icon: 'fa-calendar-alt',
+        question: 'Làm thế nào để biết lịch khai giảng?',
+        answer: `<p>Có 3 cách để cập nhật lịch khai giảng:</p>
+          <ul>
+            <li><strong>Website:</strong> Xem mục "Lịch học" trên trang chủ - cập nhật real-time</li>
+            <li><strong>Đăng ký nhận thông báo:</strong> Điền form liên hệ, chúng tôi sẽ gửi email/SMS khi có lớp mới</li>
+            <li><strong>Nhóm Zalo:</strong> Tham gia nhóm cộng đồng GLOWI để nhận thông tin nhanh nhất</li>
+            <li><strong>Hotline:</strong> Gọi 098 638 69 61 để được tư vấn chi tiết</li>
+          </ul>`
+      },
+      {
+        id: 6,
+        category: 'schedule',
+        icon: 'fa-map-marker-alt',
+        question: 'GLOWI có những cơ sở nào?',
+        answer: `<p>GLOWI hiện có <strong>3 cơ sở</strong> tại Hà Nội:</p>
+          <ul>
+            <li><strong>Cơ sở 1:</strong> 814 Đường Láng, Đống Đa (gần Big C)</li>
+            <li><strong>Cơ sở 2:</strong> Tòa S106, Vinhomes Smart City, Nam Từ Liêm</li>
+            <li><strong>Cơ sở 3:</strong> Chung cư CT11, Khu đô thị Kim Văn - Kim Lũ, Hoàng Mai</li>
+          </ul>
+          <p>Tất cả các cơ sở đều có đầy đủ trang thiết bị hiện đại, phòng học âm thanh chuẩn và không gian thoải mái!</p>`
+      },
+      {
+        id: 7,
+        category: 'certificate',
+        icon: 'fa-certificate',
+        question: 'Sau khóa học có cấp chứng nhận không?',
+        answer: `<p><strong>Có!</strong> Sau khi hoàn thành khóa học, bạn sẽ nhận được:</p>
+          <ul>
+            <li><strong>Giấy chứng nhận hoàn thành khóa học</strong> từ GLOWI</li>
+            <li><strong>Điều kiện:</strong> Tham gia đủ 80% buổi học + Hoàn thành bài tập cuối khóa</li>
+            <li><strong>Giá trị:</strong> Chứng nhận được công nhận bởi các đơn vị tổ chức sự kiện</li>
+            <li><strong>Thời gian cấp:</strong> Trong vòng 1 tuần sau buổi học cuối cùng</li>
+          </ul>
+          <p>💎 Học viên xuất sắc còn được kết nối với các cơ hội biểu diễn thực tế!</p>`
+      },
+      {
+        id: 8,
+        category: 'course',
+        icon: 'fa-users',
+        question: 'Lớp học có bao nhiêu người?',
+        answer: `<p>GLOWI cam kết chất lượng với <strong>lớp học nhỏ</strong>:</p>
+          <ul>
+            <li><strong>Offline:</strong> 8-12 học viên/lớp</li>
+            <li><strong>Online:</strong> 15-20 học viên/lớp</li>
+            <li><strong>Lợi ích:</strong> Giảng viên có thể chăm sóc sát sao từng học viên</li>
+            <li>Nhiều cơ hội thực hành, tương tác và nhận feedback chi tiết</li>
+          </ul>
+          <p><em>⚡ Số lượng có hạn - Đăng ký sớm để giữ chỗ!</em></p>`
+      },
+      {
+        id: 9,
+        category: 'course',
+        icon: 'fa-question-circle',
+        question: 'Tôi chưa có kinh nghiệm, có học được không?',
+        answer: `<p><strong>Hoàn toàn được!</strong> GLOWI thiết kế khóa học phù hợp với mọi trình độ:</p>
+          <ul>
+            <li>📚 Bắt đầu từ <strong>cơ bản nhất</strong> (phát âm, tư thế, ngôn ngữ cơ thể)</li>
+            <li>👨‍🏫 Giảng viên <strong>tận tâm hướng dẫn</strong> từng học viên</li>
+            <li>🎯 Bài tập <strong>thực hành theo nhóm nhỏ</strong> giúp bạn tự tin dần</li>
+            <li>💪 Nhiều học viên của GLOWI bắt đầu từ 0 và đã thành công!</li>
+          </ul>
+          <p><em>"Mỗi MC chuyên nghiệp đều từng là người mới bắt đầu" - Don't worry!</em></p>`
+      },
+      {
+        id: 10,
+        category: 'schedule',
+        icon: 'fa-redo',
+        question: 'Nếu tôi bỏ buổi học có được học bù không?',
+        answer: `<p><strong>Có hỗ trợ học bù!</strong> GLOWI hiểu bạn có thể bận việc đột xuất:</p>
+          <ul>
+            <li>✅ <strong>Thông báo trước 24h:</strong> Được học bù với lớp khác (cùng khóa)</li>
+            <li>📹 <strong>Video bài giảng:</strong> Học viên được cung cấp video bài học đã ghi lại</li>
+            <li>📝 <strong>Tài liệu đầy đủ:</strong> Nhận tài liệu qua email/Zalo</li>
+            <li>⚠️ <strong>Lưu ý:</strong> Chỉ được bù tối đa 2 buổi/khóa</li>
+          </ul>
+          <p><em>💡 Để đạt hiệu quả tốt nhất, hãy cố gắng tham gia đầy đủ nhé!</em></p>`
+      },
+      {
+        id: 11,
+        category: 'payment',
+        icon: 'fa-undo',
+        question: 'Có chính sách hoàn tiền không?',
+        answer: `<p>GLOWI có <strong>chính sách hoàn tiền rõ ràng</strong>:</p>
+          <ul>
+            <li>✅ <strong>Trước khai giảng 7 ngày:</strong> Hoàn 100% học phí</li>
+            <li>✅ <strong>Trước khai giảng 3-7 ngày:</strong> Hoàn 70% học phí</li>
+            <li>✅ <strong>Sau buổi học đầu tiên:</strong> Hoàn 50% nếu không hài lòng</li>
+            <li>❌ <strong>Sau buổi học thứ 3:</strong> Không hoàn tiền</li>
+          </ul>
+          <p><strong>⚡ Cam kết:</strong> Nếu bạn không hài lòng sau buổi học đầu, chúng tôi hoàn tiền 100% - không hỏi lý do!</p>`
+      },
+      {
+        id: 12,
+        category: 'course',
+        icon: 'fa-briefcase',
+        question: 'Sau khóa học có hỗ trợ tìm việc không?',
+        answer: `<p><strong>Có!</strong> GLOWI không chỉ đào tạo mà còn <strong>kết nối cơ hội</strong>:</p>
+          <ul>
+            <li>🎤 <strong>Giới thiệu show/sự kiện:</strong> Kết nối với các đơn vị tổ chức sự kiện</li>
+            <li>💼 <strong>Ngân hàng nhân tài:</strong> Profile của bạn được lưu trong hệ thống</li>
+            <li>🌟 <strong>Học viên xuất sắc:</strong> Được ưu tiên giới thiệu các dự án lớn</li>
+            <li>📱 <strong>Cộng đồng Alumni:</strong> Kết nối với học viên cũ đang làm MC chuyên nghiệp</li>
+          </ul>
+          <p><em>Nhiều học viên GLOWI đã trở thành MC thành công cho các sự kiện lớn!</em></p>`
+      }
+    ];
+
+    // Render FAQ Items
+    function renderFAQs(items) {
+      const container = document.getElementById('faqContainer');
+      const noResults = document.getElementById('noResults');
+      
+      if (items.length === 0) {
+        container.innerHTML = '';
+        noResults.classList.add('show');
+        return;
+      }
+      
+      noResults.classList.remove('show');
+      container.innerHTML = items.map(faq => `
+        <div class="faq-item" data-id="${faq.id}" data-category="${faq.category}">
+          <div class="faq-question">
+            <div class="faq-q-text">
+              <div class="faq-icon">
+                <i class="fas ${faq.icon}"></i>
+              </div>
+              <h3>${faq.question}</h3>
+            </div>
+            <div class="faq-toggle">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              ${faq.answer}
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Add click handlers
+      document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          const wasActive = item.classList.contains('active');
+          
+          // Close all items
+          document.querySelectorAll('.faq-item').forEach(i => {
+            i.classList.remove('active');
+          });
+          
+          // Toggle current item
+          if (!wasActive) {
+            item.classList.add('active');
+          }
+        });
+      });
+    }
+
+    // Initial render
+    renderFAQs(faqData);
+
+    // Search functionality
+    document.getElementById('faqSearch').addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      
+      if (searchTerm === '') {
+        const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+        filterByCategory(activeCategory);
+        return;
+      }
+      
+      const filtered = faqData.filter(faq => 
+        faq.question.toLowerCase().includes(searchTerm) ||
+        faq.answer.toLowerCase().includes(searchTerm)
+      );
+      
+      renderFAQs(filtered);
+    });
+
+    // Category filter
+    function filterByCategory(category) {
+      if (category === 'all') {
+        renderFAQs(faqData);
+      } else {
+        const filtered = faqData.filter(faq => faq.category === category);
+        renderFAQs(filtered);
+      }
+    }
+
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active state
+        document.querySelectorAll('.category-btn').forEach(b => {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+        
+        // Filter FAQs
+        const category = btn.dataset.category;
+        filterByCategory(category);
+        
+        // Clear search
+        document.getElementById('faqSearch').value = '';
+      });
+    });
+
+    // Auto-expand first FAQ
+    setTimeout(() => {
+      const firstFAQ = document.querySelector('.faq-item');
+      if (firstFAQ) {
+        firstFAQ.classList.add('active');
+      }
+    }, 500);
+  </script>
+</body>
+</html>
