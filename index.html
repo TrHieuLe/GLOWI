@@ -494,6 +494,11 @@
       background: rgba(255, 79, 163, 1);
       cursor: pointer;
     }
+    .section-desc:hover {
+      filter: brightness(1.3);
+      transform: scale(1.05);
+    }
+
 
   </style>
 </head>
@@ -668,7 +673,20 @@
       <span class="section-tag" style="font-size: 20px;">Khóa học</span>
       <h2>Chương trình đào tạo toàn diện</h2>
       <p class="section-desc">Từ cơ bản đến nâng cao, giúp bạn phát triển tối đa năng lực sân khấu & giao tiếp.</p>
-      <p class="section-desc">Click để biết thêm chi tiết</p>
+      <p class="section-desc" style="
+        font-size: 18px;
+        font-weight: 600;
+        background: linear-gradient(90deg, #ff4081, #7c4dff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        margin-top: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+      ">
+        Click mục bạn quan tâm để biết thêm chi tiết
+      </p>
+
     </div>
 
     <div class="courses-grid">
