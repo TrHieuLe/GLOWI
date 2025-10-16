@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href="img/img-logo/chot-logo.png">
+    <title>GLOWI - Nói để tỏa sáng</title>
+
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700,800,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+/* ========== GLOBAL ========== */
+    :root{
+    --accent:#e91e63;
+    --muted:#777;
+    --bg:#fafafa;
+    --card:#fff;
+    }
+
+    *{box-sizing: border-box}
+    body {
+        font-family: 'Work Sans', sans-serif;
+        background-color: var(--bg);
+        color: #222;
+        line-height: 1.85;
+        font-size: 17px;
+        -webkit-font-smoothing:antialiased;
+    }
+
+    /* ========== LAYOUT CHUNG ========== */
+    .blog-details-section{
+    margin-top:120px;
+    padding-bottom:80px;
+    }
+
+    /* Khung A4 trên desktop */
+    .bd-text {
+        background: var(--card);
+        border-radius: 14px;
+        padding: 40px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    /* Tiêu đề & đoạn văn */
+    .bd-text h4 {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 18px;
+    }
+
+    .bd-text p {
+        font-size: 17px;
+        color: #333;
+        margin-bottom: 18px;
+        line-height: 1.8;
+    }
+
+    /* danh sách */
+    .bd-text ol, .bd-text ul {
+        margin-left: 28px;
+        padding-left: 6px;
+    }
+
+    .bd-text ol li, .bd-text ul li {
+        margin-bottom: 12px;
+        line-height: 1.85;
+        color: #444;
+        font-size: 17px;
+    }
+
+    /* in đậm phần tiêu đề trong li */
+    .bd-text ol li strong, .bd-text ul li strong {
+        color: var(--accent);
+        font-weight:700;
+    }
+
+    /* ========== VIDEO ========== */
+    /* dùng aspect-ratio để responsive */
+    .bd-video {
+    margin-top:20px;
+    margin-bottom:20px;
+    }
+
+    .bd-video .video-wrap{
+    position:relative;
+    width:100%;
+    max-width:100%;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    /* iframe responsive bằng aspect-ratio */
+    .bd-video iframe,
+    .bd-video video {
+    width:100%;
+    height:100%;
+    display:block;
+    border:0;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    }
+
+    /* ========== HÌNH ẢNH (gallery) ========== */
+    .bd-more-pic {
+    margin-top: 30px;
+    }
+
+    .bd-more-pic .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; /* khoảng cách giữa các ảnh */
+    }
+
+    .bd-more-pic img {
+    width: 100%;
+    height: 240px; /* ảnh cao hơn nhìn đẹp hơn */
+    border-radius: 12px;
+    cursor: pointer;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .bd-more-pic img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* --- Desktop (>=992px): 3 ảnh 1 hàng, to hơn --- */
+    @media (min-width: 992px) {
+    .bd-more-pic .col-md-3 {
+        flex: 0 0 calc(33.333% - 15px);
+        max-width: calc(33.333% - 15px);
+    }
+    }
+
+    /* --- Tablet và Mobile (<=991px): 2 ảnh 1 hàng --- */
+    @media (max-width: 991px) {
+    .bd-more-pic .col-6 {
+        flex: 0 0 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+    }
+    }
+
+
+    /* style chung ảnh */
+    .img-fit {
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:10px;
+    cursor:pointer;
+    transition: transform .25s ease, box-shadow .25s ease;
+    object-fit:cover;
+    aspect-ratio: 16/10; /* giữ tỉ lệ, tránh biến dạng */
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+    .img-fit:hover{ transform:scale(1.03); box-shadow:0 8px 30px rgba(0,0,0,0.12); }
+
+    /* ========== POPUP ẢNH ========== */
+    .image-popup {
+    display:none;
+    position:fixed;
+    z-index:9999;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    padding:24px;
+    align-items:center;
+    justify-content:center;
+    }
+    .image-popup.active { display:flex; }
+    .popup-content {
+    max-width:95%;
+    width:900px;
+    border-radius:10px;
+    height:auto;
+    max-height:90vh;
+    object-fit:contain;
+    }
+    .image-popup .close {
+    position:absolute;
+    top:18px;
+    right:18px;
+    color:#fff;
+    font-size:34px;
+    cursor:pointer;
+    background:transparent;
+    border:none;
+    }
+
+    /* ========== TAG & SHARE ========== */
+    .bd-tag-share {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:30px;
+    border-top:1px solid #eee;
+    padding-top:18px;
+    }
+
+    /* ========== HEADER & FOOTER (giữ nguyên) ========== */
+    .site-header {
+    position:fixed;
+    width:100%;
+    background:#fff;
+    box-shadow:0 2px 12px rgba(0,0,0,0.05);
+    z-index:999;
+    }
+    .header-inner{ display:flex; align-items:center; justify-content:space-between; padding:12px 15px; }
+    .logo-text{ font-size:22px; font-weight:700; color:var(--accent); }
+
+    /* ========== RESPONSIVE (MOBILE) ========== */
+    @media (max-width: 992px){
+    .bd-text{ padding:30px; }
+    .bd-text h4{ font-size:24px; }
+    }
+
+    /* ======= CHUYỂN SANG FULL-WIDTH TRÊN ĐIỆN THOẠI ======= */
+    @media (max-width: 768px){
+    /* blog chiếm full width - xóa khung A4 */
+    .blog-details-section { margin-top:72px; padding:0; background:transparent; }
+    .bd-text {
+        max-width: none;
+        width:100%;
+        margin:0;
+        border-radius:0;
+        box-shadow:none;
+        padding:18px 16px;
+    }
+
+    /* chữ to, giãn */
+    .bd-text h4 { font-size:20px; margin-bottom:12px; }
+    .bd-text p, .bd-text li { font-size:16px; line-height:1.95; margin-bottom:14px; }
+
+    /* gallery: 2 ảnh / 1 hàng - không xếp dọc */
+    .bd-more-pic .row { gap:12px; }
+    .bd-more-pic .row > div {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: 6px;
+    }
+    .bd-more-pic .row > div img { width:100%; height:auto; border-radius:8px; aspect-ratio: 16/9; }
+
+    /* video nhỏ gọn vừa khung */
+    .bd-video .video-wrap { border-radius:8px; overflow:hidden; }
+    .bd-video iframe, .bd-video video { aspect-ratio:16/9; height:auto; }
+
+    /* popup close nhỏ hơn */
+    .image-popup .close { font-size:28px; top:12px; right:12px; }
+
+    /* tag/share xếp dọc nếu thiếu chỗ */
+    .bd-tag-share { flex-direction:column; align-items:flex-start; gap:10px; padding-top:12px; }
+
+    /* header padding nhỏ hơn */
+    .header-inner{ padding:10px 12px; }
+    }
+
+    /* thêm cho điện thoại rất nhỏ */
+    @media (max-width: 420px){
+    .bd-text { padding:14px 12px; }
+    .bd-text h4{ font-size:18px; }
+    .bd-more-pic .row > div { padding:4px; }
+    .bd-text p, .bd-text li { font-size:15px; }
+    }
+</style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+        <div class="brand">
+            <img src="logo.png" alt="Glowi logo" class="logo-img" onerror="this.style.display='none'">
+            <a href="#" class="logo-text">GLOWI</a>
+        </div>
+
+        <button id="menuToggle" class="menu-toggle" aria-label="Mở menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="nav" id="nav">
+            <ul class="nav-list">
+            <li><a href="#home">Trang chủ</a></li>
+            <li><a href="#about">Giới thiệu</a></li>
+            <li><a href="#courses">Khóa học</a></li>
+            <li><a href="#instructors">Giảng viên</a></li>
+            <li><a href="#testimonials">Cảm nhận</a></li>
+            <li><a href="#schedule">Lịch học</a></li>
+            <li><a href="FAQ.html">Câu hỏi thường gặp</a></li>
+            <li><a href="#contact" class="cta">Đăng ký</a></li>
+            <li><a href="#admin" id="adminLink">Admin</a></li>
+            </ul>
+        </nav>
+        </div>
+    </header>
+
+    <!-- Blog Details Section -->
+    <section class="blog-details-section">
+        <div class="container">
+            <div class="col-lg-8 m-auto">
+                <div class="bd-text">
+                    <h4>KHÓA HỌC "LUYỆN GIỌNG CƠ BẢN SONG NGỮ" - HÀNH TRÌNH KHƠI MỞ GIỌNG NÓI TỰ TIN CHO CON</h4>
+
+                    <p>Trong thời đại mà giao tiếp trở thành chìa khóa của thành công, việc giúp con có một giọng nói chuẩn, rõ ràng và biểu cảm không chỉ là lợi thế — mà còn là nền tảng để con tự tin thể hiện bản thân ở bất kỳ đâu. Với sứ mệnh “Khơi sáng giọng nói – Thắp lửa tự tin”, Glowi mang đến khóa học Luyện giọng cơ bản Song ngữ dành cho học sinh từ 7 đến 15 tuổi, giúp con bắt đầu hành trình rèn luyện giọng nói và khám phá sức mạnh ngôn từ.</p>
+
+                    <h4>1. Vì sao nên cho con học luyện giọng từ sớm?</h4>
+                    <p>Giọng nói không đơn thuần là âm thanh phát ra từ cổ họng — đó là phản chiếu cảm xúc, sự tự tin và khả năng diễn đạt của mỗi người. Ở lứa tuổi tiểu học và trung học cơ sở, nhiều học sinh còn nói nhanh, nói nhỏ, thiếu nhấn nhá hoặc phát âm sai. Điều này ảnh hưởng trực tiếp đến sự tự tin khi con thuyết trình, giao tiếp hay tham gia các hoạt động ngoại khóa.</p>
+                    <p>Khóa “Luyện giọng cơ bản Song ngữ” của Glowi được thiết kế để giúp trẻ định hình giọng nói chuẩn, tự nhiên và giàu cảm xúc, đồng thời rèn luyện khả năng phát âm tiếng Anh đúng nhịp điệu và âm sắc — mở đầu cho hành trình trở thành người nói chuyện cuốn hút.</p>
+                    <h4>2. Học gì trong khóa Luyện giọng cơ bản Song ngữ?</h4>
+                    <!--VIDEO-->
+                    <!-- Video Section -->
+                    <div class="bd-video" style="margin-top: 40px; text-align: center;">
+                        
+                        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.15);">
+                            <iframe 
+                                src="video-glowi/video-goc/Phương Liên (Nana) – cô bé 10 tuổi mang giọng nói Việt vươn ra thế giới.mp4"
+                                title="Video học viên Glowi"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:12px;">
+                            </iframe>
+                        </div>
+                    </div>
+                    <p>Khóa học kéo dài 6 buổi, được tổ chức online linh hoạt giúp phụ huynh dễ sắp xếp thời gian.</p>
+                    <p>Trong suốt khóa học, học viên sẽ được:</p>
+                    <ol>
+                        <li><strong>Rèn hơi thở và khẩu hình</strong>: học cách lấy hơi, giữ hơi và phát âm rõ ràng mà không gồng cổ hay mỏi họng.</li>
+                        <li><strong>Làm chủ nhịp điệu và tốc độ nói</strong>: để mỗi lời nói đều truyền cảm, không đơn điệu hay ngắt quãng.</li>
+                        <li><strong>Thực hành phát âm tiếng Việt & tiếng Anh chuẩn</strong>: với các bài luyện đơn giản, sinh động và phù hợp độ tuổi.</li>
+                        <li><strong>Khơi dậy cảm xúc qua giọng nói</strong>: giúp trẻ hiểu rằng “nói hay không chỉ đúng mà còn phải có cảm xúc”.</li>
+                        <li><strong>Giao lưu luyện tập qua video hoạt hình & quảng cáo</strong>: giúp con học nói tự nhiên qua những tình huống gần gũi.</li>
+                    </ol>
+                    <p>Điểm đặc biệt của khóa học là Glowi tặng <strong>"Bộ 10 video hoạt hình song ngữ có phụ đề và bản tách tiếng</strong>" — để học viên có thể luyện giọng và nói lại theo nhân vật ngay tại nhà, biến việc học thành một trò chơi thú vị mỗi ngày.</p>
+                    <h4>3. Lợi ích vượt xa một khóa học ngắn hạn</h4>
+                    <div class="bd-more-pic">
+                        <div class="row">
+                            <div class="col-md-3 col-6">
+                            <img src="img/img-blog-song-ngu/1.jpg" class="img-fit clickable-image">
+                            </div>
+                            <div class="col-md-3 col-6">
+                            <img src="img/img-blog-song-ngu/3.jpg" class="img-fit clickable-image">
+                            </div>
+                            <div class="col-md-3 col-6">
+                            <img src="img/img-blog-song-ngu/4.jpg" class="img-fit clickable-image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Popup hiển thị ảnh -->
+                    <div id="image-popup" class="image-popup">
+                        <span class="close">&times;</span>
+                        <img class="popup-content" id="popup-img">
+                    </div>
+
+                    <p>Sau 6 buổi, phụ huynh sẽ nhận thấy sự thay đổi rõ rệt trong cách con nói và thể hiện bản thân:</p>
+                    <ul>
+                        <li>Con phát âm rõ hơn, tròn tiếng hơn, không còn nói ngọng hoặc nói nhỏ.</li>
+                        <li>Biết điều tiết âm lượng và tốc độ để người nghe dễ hiểu, dễ cảm.</li>
+                        <li>Có thói quen giao tiếp tự tin, ánh mắt vững vàng hơn khi nói chuyện.</li>
+                        <li>Đặc biệt, con sẽ yêu thích việc nói – kể chuyện – trình bày, thay vì e dè như trước.</li>
+                    </ul>
+                    <p>Giọng nói là khởi đầu của sự tự tin. Và với Glowi, mỗi đứa trẻ đều có thể cất lên giọng nói của riêng mình – trong sáng, mạnh mẽ và đáng yêu.</p>
+                    
+
+                    
+
+                    <h4>4. Thông tin khóa học</h4>
+                    <ul>
+                        <li><strong>Số buổi</strong>: 6 buổi</li>
+                        <li><strong>Số học viên</strong>: 6–8 bạn/lớp</li>
+                        <li><strong>Độ tuổi</strong>: 7–15 tuổi</li>
+                        <li><strong>Hình thức học</strong>: Online</li>
+                        <li><strong>Học phí</strong>: 989.000 VNĐ</li>
+                        <li><strong>Quà tặng</strong>: Bộ 10 video hoạt hình, quảng cáo có sub, tách tiếng luyện tập tại nhà</li>
+                    </ul>
+                    <p>Một giọng nói tự tin là bước khởi đầu của mọi hành trình thành công.</p>
+                    <p>Hãy để Glowi đồng hành cùng con trong khóa học Luyện giọng cơ bản Song ngữ, để mỗi lời nói của con không chỉ rõ ràng — mà còn đầy cảm xúc và sức lan tỏa.</p>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0hH2dOcY7UZxZMVanLk3yU-4MwgxPlVPGnV1nJIVBKdewIw/viewform" target="_blank" 
+                    style="display:inline-block; background:#E91E63; color:white; 
+                            padding:10px 20px; border-radius:8px; text-decoration:none; 
+                            font-weight:600; transition:0.3s;">
+                    Đăng ký ngay
+                    </a>
+                    <div style="text-align:center; margin-top:40px; font-size:22px; font-weight:600; color:#E91E63;">
+                        ✨ GLOWI – Nói để Tỏa Sáng!
+                    </div>
+
+
+
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+        <div class="col about-foot">
+            <h3>GLOWI</h3>
+            <p>Trung tâm đào tạo MC & kỹ năng biểu diễn. Nói để tỏa sáng.</p>
+        </div>
+
+        <div class="col links-foot">
+            <h4>Khóa học</h4>
+            <ul>
+            <li><a href="#courses">Luyện giọng cơ bản Song ngữ</a></li>
+            <li><a href="#courses">Luyện giọng, lồng tiếng phim, quảng cáo chuyên nghiệp song ngữ</a></li>
+            <li><a href="#courses">MC, Kỹ năng thuyết trình cơ bản (Tiếng Việt)</a></li>
+            <li><a href="#courses">MC, Kỹ năng thuyết trình nâng cao, song ngữ Anh-Việt</a></li>
+            <li><a href="#courses">Bổ trợ phát âm, luyện giọng Tiếng Anh</a></li>
+            <li><a href="#courses">Khóa Coaching 1-1 theo nhu cầu</a></li>
+            </ul>
+        </div>
+
+        <div class="col contact-foot">
+            <h4>Liên hệ</h4>
+            <p>glowi.noidetoasang@gmail.com</p>
+            <p>098 638 69 61</p>
+        </div>
+        </div>
+
+        <div class="footer-bottom">
+        <p>© <span id="year"></span> GLOWI All rights reserved <a>| Raise your voice, light your world</a></p>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        function showImage(imgElement) {
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = imgElement.src;
+        }
+    </script>
+
+    <div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="imgModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-transparent border-0">
+                <div class="modal-body text-center p-0">
+                    <img id="modalImage" src="" alt="Zoomed Image" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const popup = document.getElementById("image-popup");
+        const popupImg = document.getElementById("popup-img");
+        const closeBtn = document.querySelector(".image-popup .close");
+
+        document.querySelectorAll(".clickable-image").forEach(img => {
+            img.addEventListener("click", () => {
+            popup.style.display = "block";
+            popupImg.src = img.src;
+            });
+        });
+
+        closeBtn.addEventListener("click", () => {
+            popup.style.display = "none";
+        });
+
+        popup.addEventListener("click", (e) => {
+            if (e.target === popup) popup.style.display = "none";
+        });
+    </script>
+
+</body>
+
+</html>
