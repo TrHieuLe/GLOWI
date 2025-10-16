@@ -328,95 +328,172 @@
     }
     /*SLIDE-ẢNH*/
     /* ===== GALLERY SLIDER ===== */
-.gallery-wrapper {
-  overflow: hidden;
-  width: 100%;
-  position: relative;
-  border-radius: 12px;
-}
+    .gallery-wrapper {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      border-radius: 12px;
+    }
 
-.gallery-track {
-  display: flex;
-  width: max-content;
-  animation: scrollGallery 40s linear infinite;
-}
+    .gallery-track {
+      display: flex;
+      width: max-content;
+      animation: scrollGallery 40s linear infinite;
+    }
 
-.gallery-track img {
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-right: 10px;
-  transition: transform 0.5s ease;
-}
+    .gallery-track img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-right: 10px;
+      transition: transform 0.5s ease;
+    }
 
-.gallery-track img:hover {
-  transform: scale(1.05);
-}
+    .gallery-track img:hover {
+      transform: scale(1.05);
+    }
 
-/* Animation chạy ngang liên tục */
-@keyframes scrollGallery {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
+    /* Animation chạy ngang liên tục */
+    @keyframes scrollGallery {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
 
-/* Khi rê chuột vào thì dừng lại */
-.gallery-wrapper:hover .gallery-track {
-  animation-play-state: paused;
-}
-/*QR CODE */
-.payment {
-  padding: 60px 20px;
-  text-align: center;
-  background: #fafafa;
-  border-top: 1px solid #eee;
-}
+    /* Khi rê chuột vào thì dừng lại */
+    .gallery-wrapper:hover .gallery-track {
+      animation-play-state: paused;
+    }
+    /*QR CODE */
+    .payment {
+      padding: 60px 20px;
+      text-align: center;
+      background: #fafafa;
+      border-top: 1px solid #eee;
+    }
 
-.payment-box {
-  margin-top: 30px;
-}
+    .payment-box {
+      margin-top: 30px;
+    }
 
-.payment select {
-  padding: 10px 15px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 20px;
-  outline: none;
-}
+    .payment select {
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      outline: none;
+    }
 
-.qr-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  animation: fadeIn 0.5s ease;
-}
+    .qr-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+      animation: fadeIn 0.5s ease;
+    }
 
-.qr-box img {
-  width: 250px;
-  height: 250px;
-  object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+    .qr-box img {
+      width: 250px;
+      height: 250px;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 
-.qr-box p {
-  margin-top: 10px;
-  font-size: 15px;
-  color: #444;
-}
+    .qr-box p {
+      margin-top: 10px;
+      font-size: 15px;
+      color: #444;
+    }
 
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
-}
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .course-group-title {
+      font-size: 1.4rem;
+      color: #e91e63;
+      margin-bottom: 25px;
+      text-align: center;
+      font-weight: 700;
+    }
+  </style>
+  <style>
+    /*VIDEO INTRO SECTION  */
+    .video-intro {
+      background: linear-gradient(135deg, #fffafc 0%, #fde8f1 100%);
+      padding: 80px 0;
+    }
 
-    
+    .video-intro-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      align-items: center;
+      gap: 50px;
+    }
+
+    .video-text h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .video-text .section-desc {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .video-preview {
+      position: relative;
+    }
+
+    .video-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .video-frame img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .video-frame:hover img {
+      transform: scale(1.05);
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(233, 30, 99, 0.9);
+      color: #fff;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      transition: background 0.3s ease;
+    }
+
+    .video-frame:hover .play-overlay {
+      background: rgba(255, 79, 163, 1);
+      cursor: pointer;
+    }
 
   </style>
 </head>
@@ -591,42 +668,94 @@
       <span class="section-tag" style="font-size: 20px;">Khóa học</span>
       <h2>Chương trình đào tạo toàn diện</h2>
       <p class="section-desc">Từ cơ bản đến nâng cao, giúp bạn phát triển tối đa năng lực sân khấu & giao tiếp.</p>
+      <p class="section-desc">Click để biết thêm chi tiết</p>
     </div>
 
     <div class="courses-grid">
       <article class="course-card">
+        
         <div class="course-icon"><i class="fas fa-microphone"></i></div>
-        <a href="mc-su-kien.html" class="course-link"><h3>MC Sự kiện</h3></a>
+        <a href="mc-su-kien.html" class="course-link"><h3>Luyện giọng cơ bản Song ngữ</h3></a>
         <p>Dẫn chương trình cho hội nghị, tiệc cưới, sinh nhật, sự kiện doanh nghiệp.</p>
-        <div class="course-meta"><span>8 buổi</span><span>Offline</span></div>
+        <div class="course-meta"><span>6 buổi</span><span>Online</span></div>
       </article>
 
       <article class="course-card">
         <div class="course-icon"><i class="fas fa-video"></i></div>
-        <a href="mc-truyen-hinh.html" class="course-link"><h3>MC Truyền hình & Livestream</h3></a>
+        <a href="mc-truyen-hinh.html" class="course-link"><h3>Luyện giọng, lồng tiếng phim, quảng cáo chuyên nghiệp song ngữ</h3></a>
         <p>Kỹ năng dẫn dắt chương trình truyền hình, livestream, YouTube chuyên nghiệp.</p>
-        <div class="course-meta"><span>10 buổi</span><span>Online</span></div>
+        <div class="course-meta"><span>10 buổi</span><span>Online/Offline</span></div>
       </article>
 
       <article class="course-card">
         <div class="course-icon"><i class="fas fa-comments"></i></div>
-        <a href="ky-nang-giao-tiep.html" class="course-link"><h3>Kỹ năng giao tiếp</h3></a>
+        <a href="ky-nang-giao-tiep.html" class="course-link"><h3>MC, Kỹ năng thuyết trình nâng cao, song ngữ Anh-Việt</h3></a>
         <p>Tự tin thuyết trình, đàm thoại và xây dựng mối quan hệ.</p>
-        <div class="course-meta"><span>6 buổi</span><span>Offline</span></div>
+        <div class="course-meta"><span>12 buổi</span><span>Online/Offline</span></div>
       </article>
 
       <article class="course-card">
         <div class="course-icon"><i class="fas fa-volume-up"></i></div>
-        <a href="luyen-giong-noi.html" class="course-link"><h3>Luyện giọng nói</h3></a>
+        <a href="luyen-giong-noi.html" class="course-link"><h3>MC, Kỹ năng thuyết trình cơ bản (Tiếng Việt)</h3></a>
         <p>Cải thiện chất giọng, phát âm và sức truyền cảm.</p>
-        <div class="course-meta"><span>6 buổi</span><span>Online/Offline</span></div>
+        <div class="course-meta"><span>10 buổi</span><span>Online/Offline</span></div>
       </article>
 
       <article class="course-card">
         <div class="course-icon"><i class="fas fa-lightbulb"></i></div>
-        <a href="tu-duy-sang-tao.html" class="course-link"><h3>Tư duy sáng tạo</h3></a>
+        <a href="tu-duy-sang-tao.html" class="course-link"><h3>Bổ trợ phát âm, luyện giọng Tiếng Anh</h3></a>
         <p>Ứng biến tình huống, viết kịch bản, sáng tạo nội dung.</p>
-        <div class="course-meta"><span>5 buổi</span><span>Online</span></div>
+        <div class="course-meta"><span>12 buổi</span><span>Online</span></div>
+      </article>
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-user-tie"></i></div>
+        <a href="tu-duy-sang-tao.html" class="course-link"><h3>Khóa Coaching 1-1 theo nhu cầu</h3></a>
+        <p>Ứng biến tình huống, viết kịch bản, sáng tạo nội dung.</p>
+        <div class="course-meta"><span>Không giới hạn số buổi</span><span>Online/Offline</span></div>
+      </article>
+    </div>
+    <h3 class="course-group-title" style="margin-top:60px;"><i class="fas fa-layer-group"></i> Combo ưu đãi</h3>
+    <div class="courses-grid">
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-gift"></i></div>
+        <a href="combo-mc.html" class="course-link"><h3>Starting the Journey</h3></a>
+        <p>Luyện phát âm Tiếng Anh + Luyện giọng, lồng tiếng chuyên nghiệp, tặng kèm 1 áo phông</p>
+        <div class="course-meta"><span>Giá Gốc: 6.100.000</span><span>Giá ưu đãi: 5.490.000 (-10%)</span></div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-star"></i></div>
+        <a href="combo-luyen-giong.html" class="course-link"><h3>New Star MC</h3></a>
+        <p>Luyện giọng, lồng tiếng chuyên nghiệp + MC cơ bản, tặng kèm 1 áo phông</p>
+        <div class="course-meta"><span>Giá Gốc: 6.000.000</span><span>Giá ưu đãi: 5.400.000 (-10%)</span></div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-microphone"></i></div>
+        <a href="combo-luyen-giong.html" class="course-link"><h3>Step Into the Spotlight</h3></a>
+        <p>MC cơ bản + MC nâng cao, tặng kèm 1 áo phông, 1 buổi Coaching 1-1</p>
+        <div class="course-meta"><span>Giá Gốc: 8.300.000</span><span>Giá ưu đãi: 7.470.000 (-10%)</span></div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-globe-americas"></i></div>
+        <a href="combo-luyen-giong.html" class="course-link"><h3>Confident Bilingual MC</h3></a>
+        <p>Luyện phát âm Tiếng Anh + MC cơ bản + MC nâng cao, tặng kèm 1 áo phông, 2 buổi Coaching 1-1</p>
+        <div class="course-meta"><span>Giá Gốc: 11.900.000</span><span>Giá ưu đãi: 10.490.000 (-12%)</span></div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-trophy"></i></div>
+        <a href="combo-luyen-giong.html" class="course-link"><h3>Talented MC</h3></a>
+        <p>Luyện giọng chuyên nghiệp + MC cơ bản + MC nâng cao, tặng kèm 1 áo phông, 3 buổi coaching 1-1</p>
+        <div class="course-meta"><span>Giá Gốc: 10.800.000</span><span>Giá ưu đãi: 9.540.000 (-12%)</span></div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon"><i class="fas fa-crown"></i></div>
+        <a href="combo-luyen-giong.html" class="course-link"><h3>Super MC All-in Combo</h3></a>
+        <p>Combo 4 khóa: Luyện phát âm tiếng anh, Luyện giọng chuyên nghiệp, MC cơ bản, MC nâng cao, tặng kèm 1 áo phông, 3 buổi Coaching 1-1, 1 gói quay chụp chuyên nghiệp tại Studio</p>
+        <div class="course-meta"><span>Giá Gốc: 14.400.000</span><span>Giá ưu đãi: 12.540.000 (-13%)</span></div>
       </article>
     </div>
   </div>
@@ -659,16 +788,6 @@
           <h4>NGỌC THẮM</h4>
           <p>Giảng viên luyện giọng</p>
           <a href="profile-trang-anh.html" class="read-more">Read More</a>
-        </div>
-      </div>
-
-      <div class="instr-card">
-        <div class="role-tag">TRƯỞNG BAN CHUYÊN MÔN</div>
-        <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=600&q=80&auto=format&fit=crop" alt="">
-        <div class="instr-info">
-          <h4>HOÀNG NGỌC HÀ</h4>
-          <p>Giảng viên luyện giọng</p>
-          <button class="read-more">Read More</button>
         </div>
       </div>
     </div>
@@ -797,9 +916,23 @@
         </div>
 
      </section>
+     <!--VIDEO INTRO SECTION-->
+    <section id="student-voices" class="section student-voices">
+    <div class="container">
+        <div class="section-head center">
+            <span class="section-tag" style="font-size: 20px;">Video</span>
+            <h2>Hành trình luyện tập & tỏa sáng tại GLOWI</h2>
+            <p class="section-desc">Nơi lưu giữ những khoảnh khắc đáng nhớ trong mỗi buổi học và thực hành của học viên cùng giảng viên. Cùng xem lại những phần thể hiện đầy cảm xúc, sáng tạo và tự tin của các học viên nhí tài năng.</p>
+        </div>
+        <a href="video.html" class="btn btn-primary" style="display:block; text-align:center; margin-top:30px;">
+          <i class="fas fa-video"></i> Xem tất cả video
+        </a>
 
-     
+        
+    </div>
 
+     </section>
+ 
 
   <!--VOICE END-->
 
@@ -901,9 +1034,7 @@
             <i class="fas fa-map-marker-alt"></i>
             <div>
               <h4>Địa chỉ</h4>
-              <p>Cơ sở 1: 814 Đường Láng</p>
-              <p>Cơ sở 2: Tòa S106, Vinhome Smart City</p>
-              <p>Cơ sở 3: Chung cư CT11, Khu đô thị Kim Văn - Kim Lũ</p>
+              <p>Cơ sở chính: 814 Đường Láng</p>
             </div>
           </div>
 
@@ -950,10 +1081,18 @@
             <label for="course">Khóa quan tâm</label>
             <select id="course" name="course" required>
               <option value="">Chọn khóa</option>
-              <option>MC Sự kiện</option>
-              <option>MC Truyền hình & Livestream</option>
-              <option>Luyện giọng</option>
-              <option>Kỹ năng giao tiếp</option>
+              <option>Luyện giọng cơ bản Song ngữ</option>
+              <option>Luyện giọng, lồng tiếng phim, quảng cáo chuyên nghiệp song ngữ</option>
+              <option>MC, Kỹ năng thuyết trình cơ bản (Tiếng Việt)</option>
+              <option>MC, Kỹ năng thuyết trình nâng cao, song ngữ Anh-Việt</option>
+              <option>Bổ trợ phát âm, luyện giọng Tiếng Anh</option>
+              <option>Khóa Coaching 1-1 theo nhu cầu</option>
+              <option>COMBO Starting the Journey</option>
+              <option>COMBO New Star MC</option>
+              <option>COMBO Step Into the Spotlight</option>
+              <option>COMBO Confident Bilingual MC</option>
+              <option>COMBO Talented MC</option>
+              <option>COMBO Super MC All-in Combo</option>
             </select>
           </div>
 
@@ -972,30 +1111,7 @@
     </div>
   </section>
   <!--QR CODE START-->
-  <!-- Chuyển khoản học phí -->
-<section id="payment" class="section payment">
-  <div class="container center">
-    <span class="section-tag" style="font-size: 20px;">Chuyển khoản học phí</span>
-    <h2>Vui lòng chọn khóa học bạn muốn đăng ký để xem mã QR chuyển khoản tương ứng.</h2>
-    <p>Nội dung chuyển khoản vui lòng ghi email đăng ký để GLOWI duyệt nhé. Ví dụ: Nội dung:trunghieu7305@gmail.com</p>
-
-    <div class="payment-box">
-      <label for="courseSelect">Chọn khóa học:</label>
-      <select id="courseSelect" onchange="showQR()">
-        <option value="">-- Chọn khóa học --</option>
-        <option value="mc_sukien">MC Sự kiện</option>
-        <option value="mc_truyenhinh">MC Truyền hình</option>
-        <option value="luyen_giong">Luyện giọng nói</option>
-      </select>
-
-      <div id="qrBox" class="qr-box" style="display:none;">
-        <img id="qrImage" src="" alt="QR chuyển khoản">
-        <p id="qrText"></p>
-      </div>
-    </div>
-  </div>
-</section>
-  <!--QR CODE END-->
+ 
 
   <!-- Admin section -->
   <section id="admin" class="section">
@@ -1032,9 +1148,12 @@
       <div class="col links-foot">
         <h4>Khóa học</h4>
         <ul>
-          <li><a href="#courses">MC Sự kiện</a></li>
-          <li><a href="#courses">MC Truyền hình</a></li>
-          <li><a href="#courses">Luyện giọng</a></li>
+          <li><a href="#courses">Luyện giọng cơ bản Song ngữ</a></li>
+          <li><a href="#courses">Luyện giọng, lồng tiếng phim, quảng cáo chuyên nghiệp song ngữ</a></li>
+          <li><a href="#courses">MC, Kỹ năng thuyết trình cơ bản (Tiếng Việt)</a></li>
+          <li><a href="#courses">MC, Kỹ năng thuyết trình nâng cao, song ngữ Anh-Việt</a></li>
+          <li><a href="#courses">Bổ trợ phát âm, luyện giọng Tiếng Anh</a></li>
+          <li><a href="#courses">Khóa Coaching 1-1 theo nhu cầu</a></li>
         </ul>
       </div>
 

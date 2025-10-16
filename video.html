@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư Viện Video - GLOWI</title>
+    
+    
+    <!-- Fonts & Icons -->
+    <link rel="icon" href="img/img-logo/chot-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        :root {
+            --primary: #E91E63;
+            --primary-light: #F48FB1;
+            --primary-dark: #C2185B;
+            --secondary: #673AB7;
+            --bg-light: #fff5f7;
+            --bg-white: #FFFFFF;
+            --text-dark: #212121;
+            --text-gray: #616161;
+            --text-light: #9E9E9E;
+            --border: #E0E0E0;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header - giống index.html */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 0;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-list a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-list a:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+        }
+
+        .nav-list a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding-top: 140px;
+            padding-bottom: 60px;
+            background: linear-gradient(135deg, #FFF0F5 0%, #F3E5F5 100%);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        /* Tabs */
+        .video-tabs {
+            background: white;
+            padding: 24px 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 90px;
+            z-index: 99;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 32px;
+            border: 2px solid var(--border);
+            background: white;
+            color: var(--text-dark);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .video-count {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: linear-gradient(135deg, #ffe0e8, #ffd0dd);
+            overflow: hidden;
+        }
+
+        .video-thumbnail video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Đổi từ cover → contain để không crop */
+            background: #000; /* Nền đen cho video dọc */
+        }
+
+        .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0; /* Mặc định ẩn */
+        transition: opacity 0.3s;
+        pointer-events: none;
+        }
+
+        .video-thumbnail:hover .video-overlay {
+            opacity: 1; /* Hiện khi di chuột */
+        }
+
+        .video-card.playing .video-overlay {
+            opacity: 0; /* Ẩn khi video đang play */
+        }
+
+        .video-card.playing:hover .video-overlay {
+            opacity: 1; /* Hiện lại khi hover vào video đang play */
+        }
+
+
+        .play-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5em;
+            pointer-events: auto; /* Cho phép click vào nút play */
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .play-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .video-content {
+            padding: 20px;
+        }
+
+        .video-title {
+            color: var(--text-dark);
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-gray);
+            font-size: 0.9em;
+        }
+
+        .video-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .author-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        .video-views {
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .site-footer p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav {
+                position: fixed;
+                top: 90px;
+                left: 0;
+                right: 0;
+                background: white;
+                transform: translateY(-100%);
+                transition: transform 0.3s;
+                box-shadow: var(--shadow-md);
+            }
+
+            .nav.open {
+                transform: translateY(0);
+            }
+
+            .nav-list {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .nav-list a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .page-header {
+                padding-top: 120px;
+                padding-bottom: 40px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .tabs-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .tab-btn {
+                justify-content: center;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .section-title {
+                flex-wrap: wrap;
+            }
+
+            .video-count {
+                margin-left: 0;
+            }
+        }
+    </style>
+    <style>
+        @keyframes pulse {
+        0% { text-shadow: 0 0 5px rgba(255, 80, 0, 0.6); }
+        50% { text-shadow: 0 0 20px rgba(255, 0, 0, 1); }
+        100% { text-shadow: 0 0 5px rgba(255, 80, 0, 0.6); }
+        }
+    </style>
+<!--POPUP-->
+    <style>
+    /* Overlay nền tối */
+    .popup-player {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+    }
+
+    /* Khung hiển thị chính */
+    .player-content {
+        position: relative;
+        background: #000;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        max-width: 80vw;
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        animation: zoomIn 0.3s ease;
+    }
+
+
+    #popupVideo {
+        max-width: 100%;
+        max-height: 70vh;
+        object-fit: contain;
+        background: #000;
+        border-radius: 10px;
+    }
+
+   
+    .close-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: rgba(255, 255, 255, 0.8);
+        border: none;
+        font-size: 1.2rem;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .close-btn:hover {
+        background: #E91E63;
+        color: #fff;
+    }
+
+    /* Nút điều khiển tốc độ */
+    .controls {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    .controls button {
+        background: rgba(255,255,255,0.9);
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .controls button:hover {
+        background: #E91E63;
+        color: #fff;
+    }
+
+    /* Animation hiển thị popup */
+    @keyframes zoomIn {
+        from { transform: scale(0.7); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+        <div class="brand">
+            <img src="logo.png" alt="Glowi logo" class="logo-img" onerror="this.style.display='none'">
+            <a href="#" class="logo-text">GLOWI</a>
+        </div>
+
+        <button id="menuToggle" class="menu-toggle" aria-label="Mở menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="nav" id="nav">
+            <ul class="nav-list">
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="index.html#about">Giới thiệu</a></li>
+            <li><a href="index.html#courses">Khóa học</a></li>
+            <li><a href="index.html#instructors">Giảng viên</a></li>
+            <li><a href="index.html#testimonials">Cảm nhận</a></li>
+            <li><a href="index.html#schedule">Lịch học</a></li>
+            <li><a href="FAQ.html">Câu hỏi thường gặp</a></li>
+            <li><a href="index.html#contact" class="cta">Đăng ký</a></li>
+            <li><a href="index.html#admin" id="adminLink">Admin</a></li>
+            </ul>
+        </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>📹 Thư Viện Video Học Tập</h1>
+            <p>Nơi lưu trữ và chia sẻ video bài giảng, bài tập của Giảng viên và Học viên</p>
+        </div>
+    </section>
+
+    <!-- Tabs -->
+    <section class="video-tabs">
+        <div class="container">
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="showTab('giang-vien')">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    Giảng Viên
+                </button>
+                <button class="tab-btn" onclick="showTab('hoc-vien')">
+                    <i class="fas fa-user-graduate"></i>
+                    Học Viên
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Content -->
+    <div class="container">
+        <!-- Giảng viên Section -->
+        <section id="giang-vien" class="video-section">
+            <div class="section-title">
+                <h2><i class="fas fa-chalkboard-teacher"></i> Video Giảng Viên</h2>
+                <span class="video-count">14 video</span>
+            </div>
+
+            <div class="video-grid">
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Cô Trang Anh “lên sóng” với màn lồng tiếng siêu dễ thương.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">0:36</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Cô Trang Anh “lên sóng” với màn lồng tiếng siêu dễ thương</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TA</div>
+                                <span>GV. TRANG ANH</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Từ giọng Hải Phòng đến giọng “vạn năng”  Cô Trang Anh – minh chứng rằng chỉ cần kiên trì, giọng nói nào cũng có thể tỏa sáng.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">0:54</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Từ giọng Hải Phòng đến giọng “vạn năng” Cô Trang Anh – minh chứng rằng chỉ cần kiên trì, giọng nói nào cũng có thể tỏa sáng</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TA</div>
+                                <span>GV. TRANG ANH</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Cô Ngọc Thắm – “chất lừ” với khả năng MC song ngữ Anh - Việt, tự tin và cuốn hút trên từng lời dẫn.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">2:22</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Cô Ngọc Thắm – “chất lừ” với khả năng MC song ngữ Anh - Việt, tự tin và cuốn hút trên từng lời dẫn</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">NT</div>
+                                <span>GV. NGỌC THẮM</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+                
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/tong-ket.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">0:40</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Tổng kết lớp MC nhí</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TK</div>
+                                <span>TỔNG KẾT</span>
+                            </div>
+                           <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Tỏa sáng cùng Glowi ✨ – nơi các MC nhí rèn luyện giọng nói, kỹ năng sân khấu và giao tiếp song ngữ tự tin, chuyên nghiệp.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">3:49</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Tỏa sáng cùng Glowi – nơi các MC nhí rèn luyện giọng nói, kỹ năng sân khấu và giao tiếp song ngữ tự tin, chuyên nghiệp</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">GV</div>
+                                <span>GV TRANG ANH & NGỌC THẮM</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Cô Ngọc Thắm hướng dẫn đọc Voice-off song ngữ cực “xịn”.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:20</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Cô Ngọc Thắm hướng dẫn đọc Voice-off song ngữ cực “xịn”</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">NT</div>
+                                <span>GV NGỌC THẮM</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Phía sau ánh đèn sân khấu là tình yêu và tâm huyết của người cô dẫn dắt.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">01:01</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Phía sau ánh đèn sân khấu là tình yêu và tâm huyết của người cô dẫn dắt</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TA</div>
+                                <span>GV TRANG ANH</span>
+                                <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Giọng nói hay không phải bẩm sinh – mà là kết quả của luyện tập mỗi ngày.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:43</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Giọng nói hay không phải bẩm sinh – mà là kết quả của luyện tập mỗi ngày</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TA</div>
+                                <span>GV TRANG ANH</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/PHƯƠNG PHÁP LUYỆN GIỌNG TIẾNG ANH CÙNG GLOWI..mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:33</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">PHƯƠNG PHÁP LUYỆN GIỌNG TIẾNG ANH CÙNG GLOWI.</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TA</div>
+                                <span>GV TRANG ANH</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Giọng nói hay không phải bẩm sinh – mà là kết quả của luyện tập mỗi ngày.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:43</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Giọng nói hay không phải bẩm sinh – mà là kết quả của luyện tập mỗi ngày</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TA</div>
+                                <span>GV TRANG ANH</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/BUỔI TỔNG KẾT LỚP MC NHÍ, GIAO TIẾP, THUYẾT TRÌNH CƠ BẢN.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">3:46</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title"> BUỔI TỔNG KẾT LỚP MC NHÍ, GIAO TIẾP, THUYẾT TRÌNH CƠ BẢN</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TK</div>
+                                <span>TỔNG KẾT</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Phát biểu mà khán giả buồn ngủ ư 😴 Cùng Glowi khám phá bí quyết để thuyết trình cuốn hút và tràn đầy năng lượng nhé!.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:26</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Phát biểu mà khán giả buồn ngủ ư? Cùng Glowi khám phá bí quyết để thuyết trình cuốn hút và tràn đầy năng lượng nhé!</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TA</div>
+                                <span>GV TRANG ANH</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Học “kỹ” năng phải thật “kĩ” – vì mỗi chi tiết nhỏ đều tạo nên một MC tự tin và chuyên nghiệp .mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:23</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Học “kỹ” năng phải thật “kĩ” – vì mỗi chi tiết nhỏ đều tạo nên một MC tự tin và chuyên nghiệp</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TA</div>
+                                <span>GV TRANG ANH</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+                 <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-giang-vien/Cùng cô Trang Anh lồng tiếng cực chất cho Shizuka.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">00:23</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Cùng Cô Trang Anh lồng tiếng cực "chất" cho Shizuka</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TA</div>
+                                <span>GV TRANG ANH</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Học viên Section -->
+        <section id="hoc-vien" class="video-section" style="display:none">
+            <div class="section-title">
+                <h2><i class="fas fa-user-graduate"></i> Video Học Viên</h2>
+                <span class="video-count">19 video</span>
+            </div>
+
+            <div class="video-grid">
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Ánh Dương – cô bé nhỏ nhắn nhưng tỏa sáng rực rỡ, biến từng lời nói thành cảm xúc trên sân khấu.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:00</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Ánh Dương – Cô bé tỏa sáng từ từng lời nói</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">AD</div>
+                                <span>ÁNH DƯƠNG</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Giọng nói tự hào – lời tri ân vang lên từ những hạt mầm Glowi.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:38</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Giọng nói tự hào – lời tri ân vang lên từ những hạt mầm Glowi</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TA</div>
+                                <span>THU ÂM</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Mai Hoàng & Ngọc Mai – hai cô bé biến nỗi sợ thành phép màu tự tin trên sân khấu.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">2:28</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Mai Hoàng & Ngọc Mai – hai cô bé biến nỗi sợ thành phép màu tự tin trên sân khấu</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TS</div>
+                                <span>TALKSHOW</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Hà My – giọng nói trong trẻo kể về khu vườn tình yêu của mẹ, nơi mỗi lời con nói đều nở hoa.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:39</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Hà My – giọng nói trong trẻo kể về khu vườn tình yêu của mẹ, nơi mỗi lời con nói đều nở hoa</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TS</div>
+                                <span>TALKSHOW</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Từ “nói ngọng” đến “nói rõ” – hành trình Glowi giúp con tìm lại giọng nói tự tin.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">0:23</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">"Nói ngọng" - Hơn cả một lỗi phát âm đơn thuần</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TN</div>
+                                <span>TRAINING</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/TALKSHOW SỨC MẠNH CỦA LÒNG BIẾT ƠN.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">4:22</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">TALKSHOW: SỨC MẠNH CỦA LÒNG BIẾT ƠN</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TS</div>
+                                <span>TALKSHOW</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Ánh Dương – 6 tuổi Cô bé “chạm mic” và chạm đến trái tim qua những thông điệp xanh.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:41</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Ánh Dương – 6 tuổi: Cô bé “chạm mic” và chạm đến trái tim qua những thông điệp xanh</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TS</div>
+                                <span>TALKSHOW</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/“Lớp học hạnh phúc” – nơi tiếng cười và ánh mắt trẻ thơ làm sáng cả ngày 🌈✨.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:11</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">“Lớp học hạnh phúc” – nơi tiếng cười và ánh mắt trẻ thơ làm sáng cả ngày</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">MG</div>
+                                <span>MINIGAME</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Giờ học kể chuyện song ngữ đầy năng lượng – nơi các MC nhí Glowi vừa nói hay, vừa tự tin hội nhập toàn cầu.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:41</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Giờ học kể chuyện song ngữ đầy năng lượng – nơi các MC nhí Glowi vừa nói hay, vừa tự tin hội nhập toàn cầu</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">SN</div>
+                                <span>MC SONG NGỮ</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Ba sắc màu – một gia đình Glowi  Hải Anh, Diệu Anh và Hải Đăng cùng nhau tỏa sáng theo cách riêng của mình.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">3:12</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Ba sắc màu – một gia đình Glowi Hải Anh, Diệu Anh và Hải Đăng cùng nhau tỏa sáng theo cách riêng của mình</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TS</div>
+                                <span>TALKSHOW</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/An Nhiên, Gia Linh và cô Trang Anh mang đến thế giới “Babybus” đầy sắc màu và cảm xúc.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:10</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">An Nhiên, Gia Linh và cô Trang Anh mang đến thế giới “Babybus” đầy sắc màu và cảm xúc</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">LT</div>
+                                <span>LỒNG TIẾNG</span>
+                            </div>
+                            <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Hải Đăng và Khánh Hà “song kiếm hợp bích” trong thử thách dẫn đôi song ngữ cực đáng yêu.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:26</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Hải Đăng và Khánh Hà “song kiếm hợp bích” trong thử thách dẫn đôi song ngữ cực đáng yêu</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">LT</div>
+                                <span>LUYỆN TẬP</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/ltap.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">00:44</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Buổi luyện tập thuyết trình cùng cô Ngọc Thắm</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">LT</div>
+                                <span>LUYỆN TẬP</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/5 Ly do nen cho con hok MC.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:50</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Vũ Trà My có buổi thực hành cùng lớp MC nhí</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TH</div>
+                                <span>THỰC HÀNH</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Dáng đi tự tin – bước đầu để tỏa sáng trên sân khấu ✨💃 Cùng Glowi học cách đứng, đi và thể hiện thật chuyên nghiệp nhé!.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:00</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Dáng đi tự tin – bước đầu để tỏa sáng trên sân khấu Cùng Glowi học cách đứng, đi và thể hiện thật chuyên nghiệp nhé!</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">LT</div>
+                                <span>LUYỆN TẬP</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Nguyễn Trung Dũng – “nam thần” MC nhí ghi điểm ngay từ màn giới thiệu đầu tiên.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:08</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Nguyễn Trung Dũng – “nam thần” MC nhí ghi điểm ngay từ màn giới thiệu đầu tiên</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TH</div>
+                                <span>THỰC HÀNH</span>
+                            </div>
+                            <span class="video-views" style="color:#fff; background:linear-gradient(90deg,#007bff,#0056b3); font-weight:600; font-size:1em; padding:4px 10px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">GLOWI VIDEO</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Phương Liên (Nana) – cô bé 10 tuổi mang giọng nói Việt vươn ra thế giới.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">1:09</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Phương Liên (Nana) – cô bé 10 tuổi mang giọng nói Việt vươn ra thế giới</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">SN</div>
+                                <span>SONG NGỮ</span>
+                            </div>
+                           <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/MC-TN.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">5:13</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">MC nhí có buổi TRẢI NGHIỆM tại Bảo Tàng thành phố HCM</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TN</div>
+                                <span>TRẢI NGHIỆM</span>
+                            </div>
+                           <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="playVideo(this)">
+                    <div class="video-thumbnail">
+                        <video>
+                            <source src="video-glowi/video-goc/Quỳnh Chi – học sinh lớp MC nâng cao tại Glowi đang từng bước biến đam mê thành kỹ năng thật sự!.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-duration">2:23</div>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">Quỳnh Chi – học sinh lớp MC nâng cao tại Glowi đang từng bước biến đam mê thành kỹ năng thật sự!</h3>
+                        <div class="video-info">
+                            <div class="video-author">
+                                <div class="author-avatar">TH</div>
+                                <span>THỰC HÀNH</span>
+                            </div>
+                           <span class="video-views" style="color: #ff4d4d; font-weight: bold; background: linear-gradient(90deg, #ff6600, #ff0000); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 10px rgba(255, 80, 0, 0.8); font-size: 1.1em; animation: pulse 1s infinite;">🔥GLOWI HOT VIDEO🔥</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--POPUP-->
+        <section>
+            <div id="popupPlayer" class="popup-player">
+                <div class="player-content">
+                    <video id="popupVideo" controls></video>
+                    <div class="controls">
+                        <button id="btnSlow">0.5x</button>
+                        <button id="btnNormal">1x</button>
+                        <button id="btnFast">1.5x</button>
+                        <button id="btnClose">Đóng</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+        <div class="col about-foot">
+            <h3>GLOWI</h3>
+            <p>Trung tâm đào tạo MC & kỹ năng biểu diễn. Nói để tỏa sáng.</p>
+        </div>
+
+        <div class="col links-foot">
+            <h4>Khóa học</h4>
+            <ul>
+            <li><a href="#courses">MC Sự kiện</a></li>
+            <li><a href="#courses">MC Truyền hình</a></li>
+            <li><a href="#courses">Luyện giọng</a></li>
+            </ul>
+        </div>
+
+        <div class="col contact-foot">
+            <h4>Liên hệ</h4>
+            <p>glowi.noidetoasang@gmail.com</p>
+            <p>098 638 69 61</p>
+        </div>
+        </div>
+
+        <div class="footer-bottom">
+        <p>© <span id="year"></span> GLOWI All rights reserved <a>| Raise your voice, light your world</a></p>
+        </div>
+    </footer>
+    <script>
+        // Menu toggle
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('nav').classList.toggle('open');
+        });
+
+        // Close menu when clicking nav link
+        document.querySelectorAll('.nav-list a').forEach(a => {
+            a.addEventListener('click', () => {
+                document.getElementById('nav').classList.remove('open');
+            });
+        });
+
+        // Tab switching
+        function showTab(tab) {
+            const giangVienSection = document.getElementById('giang-vien');
+            const hocVienSection = document.getElementById('hoc-vien');
+            const tabs = document.querySelectorAll('.tab-btn');
+
+            tabs.forEach(t => t.classList.remove('active'));
+
+            if (tab === 'giang-vien') {
+                giangVienSection.style.display = 'block';
+                hocVienSection.style.display = 'none';
+                tabs[0].classList.add('active');
+            } else {
+                giangVienSection.style.display = 'none';
+                hocVienSection.style.display = 'block';
+                tabs[1].classList.add('active');
+            }
+        }
+
+        // Play video
+        function playVideo(card) {
+            const video = card.querySelector('video');
+            const overlay = card.querySelector('.video-overlay');
+
+            if (video.paused) {
+                // Pause all other videos
+                document.querySelectorAll('video').forEach(v => {
+                    v.pause();
+                    const parentCard = v.closest('.video-card');
+                    parentCard.classList.remove('playing');
+                });
+
+                video.play();
+                card.classList.add('playing');
+            } else {
+                video.pause();
+                card.classList.remove('playing');
+            }
+        }
+
+        // Video ended event
+        document.querySelectorAll('video').forEach(video => {
+            video.addEventListener('ended', () => {
+                const card = video.closest('.video-card');
+                card.classList.remove('playing');
+            });
+
+            // Click vào video cũng play/pause
+            video.addEventListener('click', (e) => {
+                e.stopPropagation();
+                playVideo(video.closest('.video-card'));
+            });
+        });
+    </script>
+    <script>
+        const popup = document.getElementById('popupPlayer');
+        const popupVideo = document.getElementById('popupVideo');
+        const btnClose = document.getElementById('btnClose');
+
+        // Khi click vào thẻ video nào thì mở popup
+        document.querySelectorAll('.video-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                const video = card.querySelector('video');
+                const src = video.querySelector('source').src;
+
+                popup.style.display = 'flex';
+                popupVideo.src = src;
+                popupVideo.play();
+            });
+        });
+
+        // Nút đóng popup
+        btnClose.addEventListener('click', () => {
+            popup.style.display = 'none';
+            popupVideo.pause();
+            popupVideo.src = '';
+        });
+
+        // Click ra ngoài để đóng
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                btnClose.click();
+            }
+        });
+
+        // Tua nhanh / chậm
+        document.getElementById('btnSlow').addEventListener('click', () => {
+            popupVideo.playbackRate = 0.5;
+        });
+        document.getElementById('btnNormal').addEventListener('click', () => {
+            popupVideo.playbackRate = 1.0;
+        });
+        document.getElementById('btnFast').addEventListener('click', () => {
+            popupVideo.playbackRate = 1.5;
+        });
+    </script>
+    
+</body>
+</html>
