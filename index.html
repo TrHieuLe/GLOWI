@@ -1206,15 +1206,17 @@
 
 
   <script>
-const JSONBIN_BIN_ID = "68e6016cae596e708f0a1adf"; // Giữ để client biết ID, không cần key
+/* ====== Cấu hình cơ bản ====== */
+const JSONBIN_BIN_ID = "68e6016cae596e708f0a1adf"; // chỉ ID, không cần key
 const EMAILJS_USER_ID = "REPLACE_EMAILJS_USERID";
 const EMAILJS_SERVICE_ID = "REPLACE_EMAILJS_SERVICEID";
 const EMAILJS_TEMPLATE_ID = "REPLACE_EMAILJS_TEMPLATEID";
 
-// === Utilities ===
+/* ====== Tiện ích ====== */
 function el(sel){return document.querySelector(sel)}
 function formatDate(d){
-  const D = new Date(d); if (isNaN(D)) return d;
+  const D = new Date(d);
+  if (isNaN(D)) return d;
   return `${String(D.getDate()).padStart(2,'0')}/${String(D.getMonth()+1).padStart(2,'0')}/${D.getFullYear()}`;
 }
 function showMsg(msg, success=true){
@@ -1224,39 +1226,51 @@ function showMsg(msg, success=true){
   m.style.color = success ? '#fff' : '#ffeeee';
   setTimeout(()=> m.classList.remove('visible'), 7000);
 }
-function escapeHtml(s){return String(s||'').replace(/[&<>"'`]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c]))}
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"'`]/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'
+  }[c]));
+}
 
-// === Fetch JSONBin qua server proxy ===
+/* ====== Giao tiếp với Netlify Function (proxy) ====== */
 async function fetchFullBinRecord(){
+  const token = sessionStorage.getItem('glowi_admin_token') || '';
   try {
-    const res = await fetch('/.netlify/functions/jsonbin-proxy');
-    if (!res.ok) throw new Error('fetch error');
+    const res = await fetch('/.netlify/functions/jsonbin-proxy', {
+      headers: token ? { 'Authorization': 'Bearer '+token } : {}
+    });
+    if (!res.ok) throw new Error('Fetch error');
     const data = await res.json();
-    return data.record || {registrations:[], schedule:defaultSchedule()};
+    return data.record || { registrations: [], schedule: defaultSchedule() };
   } catch(err){
     console.warn('fetchFullBinRecord err', err);
     const local = localStorage.getItem('glowi_full_bin');
-    return local ? JSON.parse(local) : {registrations:[], schedule:defaultSchedule()};
+    return local ? JSON.parse(local) : { registrations: [], schedule: defaultSchedule() };
   }
 }
 
 async function putFullBinRecord(record){
+  const token = sessionStorage.getItem('glowi_admin_token') || '';
   try {
-    const token = sessionStorage.getItem('glowi_admin_token') || '';
     const headers = {'Content-Type':'application/json'};
     if (token) headers['Authorization'] = 'Bearer '+token;
-    const res = await fetch('/.netlify/functions/jsonbin-proxy', { method:'PUT', headers, body: JSON.stringify(record) });
+    const res = await fetch('/.netlify/functions/jsonbin-proxy', {
+      method:'PUT',
+      headers,
+      body: JSON.stringify(record)
+    });
     if (!res.ok) throw new Error('PUT failed: '+res.status);
     return {ok:true, data:await res.json()};
   } catch(err){
     console.warn('putFullBinRecord err', err);
+    // fallback local
     localStorage.setItem('glowi_full_bin', JSON.stringify(record));
     localStorage.setItem('glowi_regs', JSON.stringify(record.registrations || []));
     return {ok:false, error:err};
   }
 }
 
-// === Schedule & Registrations ===
+/* ====== Dữ liệu mặc định ====== */
 function defaultSchedule(){
   return [
     {id:'s1', title:'MC Sự kiện', date:'2025-10-12', mode:'Offline', location:'Hà Nội', seats:20},
@@ -1265,6 +1279,7 @@ function defaultSchedule(){
   ];
 }
 
+/* ====== Hiển thị lịch học ====== */
 async function renderSchedule(){
   const grid = el('#scheduleGrid');
   grid.innerHTML = '<p class="small-muted">Đang tải lịch...</p>';
@@ -1285,6 +1300,7 @@ async function renderSchedule(){
   });
 }
 
+/* ====== Hiển thị danh sách đăng ký (Admin) ====== */
 async function renderRegistrations(){
   const list = el('#registrationsList');
   list.innerHTML = '<p class="small-muted">Đang tải đăng ký...</p>';
@@ -1320,7 +1336,7 @@ async function renderRegistrations(){
   });
 }
 
-// === Admin actions ===
+/* ====== Xử lý hành động admin ====== */
 async function handleAdminAction(action,id){
   const full = await fetchFullBinRecord();
   const idx = full.registrations.findIndex(r=>r.id===id);
@@ -1330,33 +1346,51 @@ async function handleAdminAction(action,id){
   if(action==='cancel')reg.status='Đã hủy';
   if(action==='delete')full.registrations.splice(idx,1);
   await putFullBinRecord(full);
+
+  // Gửi email khi duyệt
   if(action==='approve'&&reg.email){
     try{
-      await emailjs.send("service_8drej45","template_7wkfpgt",{to_name:reg.name,to_email:reg.email,course:reg.course,status:'Đã duyệt'});
+      await emailjs.send("service_8drej45","template_7wkfpgt",{
+        to_name:reg.name,to_email:reg.email,course:reg.course,status:'Đã duyệt'
+      });
       alert('✅ Đã gửi mail xác nhận cho '+reg.name);
     }catch(e){console.warn('Email fail',e);}
   }
 }
 
-// === Student form ===
+/* ====== Xử lý form học viên ====== */
 document.getElementById('contactForm').addEventListener('submit',async(e)=>{
   e.preventDefault();
-  const name=el('#name').value.trim(),phone=el('#phone').value.trim(),email=el('#email').value.trim(),course=el('#course').value,note=el('#message').value.trim();
+  const name=el('#name').value.trim(),
+        phone=el('#phone').value.trim(),
+        email=el('#email').value.trim(),
+        course=el('#course').value,
+        note=el('#message').value.trim();
   if(!name||!phone||!course)return showMsg('Vui lòng điền đủ thông tin.',false);
-  const reg={id:'r_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,phone,email,course,note,createdAt:new Date().toISOString(),status:'Chưa xử lý'};
-  const full=await fetchFullBinRecord();full.registrations.push(reg);
+
+  const reg={id:'r_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+             name,phone,email,course,note,createdAt:new Date().toISOString(),status:'Chưa xử lý'};
+
+  const full=await fetchFullBinRecord();
+  full.registrations.push(reg);
   const put=await putFullBinRecord(full);
   if(put.ok){
     showMsg('✅ Cảm ơn '+name+'! Chúng tôi đã nhận được đăng ký.');
-    e.target.reset(); await renderRegistrations(); await renderSchedule();
+    e.target.reset();
+    await renderRegistrations();
+    await renderSchedule();
   }else showMsg('Lỗi khi lưu đăng ký.',false);
 });
 
-// === Admin login (bảo mật Netlify) ===
+/* ====== Đăng nhập admin (JWT qua Netlify) ====== */
 el('#adminLoginBtn').addEventListener('click',async()=>{
   const pw=el('#adminPass').value;
   try{
-    const res=await fetch('/.netlify/functions/admin-login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})});
+    const res=await fetch('/.netlify/functions/admin-login',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({password:pw})
+    });
     const data=await res.json();
     if(!data.ok)return alert('Password không đúng.');
     sessionStorage.setItem('glowi_admin_token',data.token);
@@ -1377,13 +1411,18 @@ el('#adminLogoutBtn').addEventListener('click',()=>{
   el('#adminPass').value='';
 });
 
-// === init ===
+/* ====== Khởi tạo ====== */
 (async function init(){
   const full=await fetchFullBinRecord();
-  if(!full.schedule&&!full.registrations)await putFullBinRecord({registrations:[],schedule:defaultSchedule()});
-  await renderSchedule(); await renderRegistrations();
+  if(!full.schedule&&!full.registrations)
+    await putFullBinRecord({registrations:[],schedule:defaultSchedule()});
+  await renderSchedule();
+  // Chỉ render danh sách nếu có token
+  if(sessionStorage.getItem('glowi_admin_token'))
+    await renderRegistrations();
 })();
 </script>
+
 
   <script>
     const intro = document.getElementById('intro');
