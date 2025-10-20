@@ -1,0 +1,11 @@
+{
+  "name": "glowi-site",
+  "version": "1.0.0",
+  "description": "GLOWI site using Netlify Functions",
+  "main": "index.html",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.0",
+    "node-fetch": "^2.6.9"
+  }
+}
