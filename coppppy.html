@@ -1206,185 +1206,362 @@
 
 
   <script>
-const JSONBIN_BIN_ID = "68e6016cae596e708f0a1adf"; // Giữ để client biết ID, không cần key
-const EMAILJS_USER_ID = "REPLACE_EMAILJS_USERID";
-const EMAILJS_SERVICE_ID = "REPLACE_EMAILJS_SERVICEID";
-const EMAILJS_TEMPLATE_ID = "REPLACE_EMAILJS_TEMPLATEID";
+    // ====== CONFIG - PLEASE REPLACE THESE VALUES WITH YOUR KEYS ======
+    JSONBIN_BIN_ID = "68e6016cae596e708f0a1adf"; // ex: "687942386be756241aa5629c"
+    const JSONBIN_MASTER_KEY = "$2a$10$MYuaIOkvWBJ0TWZ8yJlRburuiXo4CSClQgly64RsXg5Yk5aLkRwFS"; // X-Master-Keyconst 
+    // JSONBin endpoints used: GET https://api.jsonbin.io/v3/b/{binId}/latest and PUT https://api.jsonbin.io/v3/b/{binId}
+    const EMAILJS_USER_ID = "REPLACE_EMAILJS_USERID";
+    const EMAILJS_SERVICE_ID = "REPLACE_EMAILJS_SERVICEID";
+    const EMAILJS_TEMPLATE_ID = "REPLACE_EMAILJS_TEMPLATEID";
+    // admin demo password (change before production)
+    const ADMIN_DEMO_PASSWORD = "glowi";
 
-// === Utilities ===
-function el(sel){return document.querySelector(sel)}
-function formatDate(d){
-  const D = new Date(d); if (isNaN(D)) return d;
-  return `${String(D.getDate()).padStart(2,'0')}/${String(D.getMonth()+1).padStart(2,'0')}/${D.getFullYear()}`;
-}
-function showMsg(msg, success=true){
-  const m = el('#formMsg');
-  m.textContent = msg;
-  m.classList.add('visible');
-  m.style.color = success ? '#fff' : '#ffeeee';
-  setTimeout(()=> m.classList.remove('visible'), 7000);
-}
-function escapeHtml(s){return String(s||'').replace(/[&<>"'`]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c]))}
+    // ====== INIT EmailJS (if user filled in) ======
+    if (EMAILJS_USER_ID && EMAILJS_USER_ID !== "REPLACE_EMAILJS_USERID") {
+      emailjs.init(EMAILJS_USER_ID);
+    }
 
-// === Fetch JSONBin qua server proxy ===
-async function fetchFullBinRecord(){
-  try {
-    const res = await fetch('/.netlify/functions/jsonbin-proxy');
-    if (!res.ok) throw new Error('fetch error');
-    const data = await res.json();
-    return data.record || {registrations:[], schedule:defaultSchedule()};
-  } catch(err){
-    console.warn('fetchFullBinRecord err', err);
-    const local = localStorage.getItem('glowi_full_bin');
-    return local ? JSON.parse(local) : {registrations:[], schedule:defaultSchedule()};
+    // ====== Utilities ======
+    function el(sel){return document.querySelector(sel)}
+    function formatDate(d){ // format dd/mm/yyyy
+      const D = new Date(d);
+      if (isNaN(D)) return d;
+      const dd = String(D.getDate()).padStart(2,'0');
+      const mm = String(D.getMonth()+1).padStart(2,'0');
+      const yy = D.getFullYear();
+      return `${dd}/${mm}/${yy}`;
+    }
+    function showMsg(msg, success=true){
+      const m = el('#formMsg');
+      m.textContent = msg;
+      m.classList.add('visible');
+      m.style.color = success ? '#fff' : '#ffeeee';
+      setTimeout(()=> m.classList.remove('visible'), 7000);
+    }
+
+    // ====== JSONBin helpers ======
+    async function fetchRegistrationsFromJSONBin(){
+      if (!JSONBIN_BIN_ID || JSONBIN_BIN_ID.startsWith('REPLACE')) {
+        // no JSONBin configured -> fallback to localStorage
+        const local = localStorage.getItem('glowi_regs');
+        return local ? JSON.parse(local) : [];
+      }
+      try {
+        const resp = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+  headers: {
+    'X-Master-Key': JSONBIN_MASTER_KEY
   }
-}
+});
 
-async function putFullBinRecord(record){
-  try {
-    const token = sessionStorage.getItem('glowi_admin_token') || '';
-    const headers = {'Content-Type':'application/json'};
-    if (token) headers['Authorization'] = 'Bearer '+token;
-    const res = await fetch('/.netlify/functions/jsonbin-proxy', { method:'PUT', headers, body: JSON.stringify(record) });
-    if (!res.ok) throw new Error('PUT failed: '+res.status);
-    return {ok:true, data:await res.json()};
-  } catch(err){
-    console.warn('putFullBinRecord err', err);
-    localStorage.setItem('glowi_full_bin', JSON.stringify(record));
-    localStorage.setItem('glowi_regs', JSON.stringify(record.registrations || []));
-    return {ok:false, error:err};
+        if (!resp.ok) throw new Error('Không thể đọc JSONBin: ' + resp.status);
+        const data = await resp.json();
+        // Expect stored content to be an object like {registrations: [...], schedule: [...]}
+        return data && data.record && (data.record.registrations || []);
+      } catch(err){
+        console.warn('fetchRegistrationsFromJSONBin failed', err);
+        // fallback local
+        const local = localStorage.getItem('glowi_regs');
+        return local ? JSON.parse(local) : [];
+      }
+    }
+
+    async function fetchFullBinRecord(){
+      // returns the record object or null
+      if (!JSONBIN_BIN_ID || JSONBIN_BIN_ID.startsWith('REPLACE')) {
+        const raw = localStorage.getItem('glowi_full_bin');
+        return raw ? JSON.parse(raw) : {registrations: [], schedule: defaultSchedule()};
+      }
+      try {
+        const resp = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+  headers: {
+    'X-Master-Key': JSONBIN_MASTER_KEY
   }
-}
+});
 
-// === Schedule & Registrations ===
-function defaultSchedule(){
-  return [
-    {id:'s1', title:'MC Sự kiện', date:'2025-10-12', mode:'Offline', location:'Hà Nội', seats:20},
-    {id:'s2', title:'MC Truyền hình — Khai giảng', date:'2025-11-05', mode:'Online', location:'Online', seats:40},
-    {id:'s3', title:'Luyện giọng nói', date:'2025-10-20', mode:'Offline', location:'Hà Nội', seats:18}
-  ];
-}
+        if (!resp.ok) throw new Error('Fetch bin failed');
+        const data = await resp.json();
+        return data.record || {registrations: [], schedule: defaultSchedule()};
+      } catch(err){
+        console.warn('fetchFullBinRecord err', err);
+        const raw = localStorage.getItem('glowi_full_bin');
+        return raw ? JSON.parse(raw) : {registrations: [], schedule: defaultSchedule()};
+      }
+    }
 
-async function renderSchedule(){
-  const grid = el('#scheduleGrid');
-  grid.innerHTML = '<p class="small-muted">Đang tải lịch...</p>';
-  const bin = await fetchFullBinRecord();
-  const schedule = bin.schedule || defaultSchedule();
-  grid.innerHTML = '';
-  schedule.forEach(s=>{
-    const card=document.createElement('div');
-    card.className='sched-card';
-    card.innerHTML=`
-      <h4>${escapeHtml(s.title)} — Khai giảng</h4>
-      <p><strong>Ngày:</strong> ${formatDate(s.date)} — <strong>Ca:</strong> ${s.time||'Xem chi tiết'}</p>
-      <p><strong>Địa điểm:</strong> ${escapeHtml(s.location||s.mode)}</p>
-      <p class="small-muted">Chỗ: ${s.seats??'Không xác định'}</p>
-      <a class="btn-sm" href="#contact" data-prefill='${escapeHtml(JSON.stringify(s))}'>Đăng ký</a>
-    `;
-    grid.appendChild(card);
-  });
-}
+    async function putFullBinRecord(record){
+      // record: object to PUT to JSONBin
+      if (!JSONBIN_BIN_ID || JSONBIN_BIN_ID.startsWith('REPLACE') || !JSONBIN_MASTER_KEY || JSONBIN_MASTER_KEY.startsWith('REPLACE')) {
+        // fallback to localStorage
+        localStorage.setItem('glowi_full_bin', JSON.stringify(record));
+        localStorage.setItem('glowi_regs', JSON.stringify(record.registrations || []));
+        return {ok:true, fallback:true};
+      }
+      try {
+        const resp = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': JSONBIN_MASTER_KEY
+          },
+          body: JSON.stringify(record)
+        });
+        if (!resp.ok) {
+          const t = await resp.text();
+          throw new Error('PUT failed: ' + resp.status + ' ' + t);
+        }
+        const data = await resp.json();
+        return {ok:true, data};
+      } catch(err){
+        console.warn('putFullBinRecord err', err);
+        // fallback:
+        localStorage.setItem('glowi_full_bin', JSON.stringify(record));
+        localStorage.setItem('glowi_regs', JSON.stringify(record.registrations || []));
+        return {ok:false, error:err};
+      }
+    }
 
-async function renderRegistrations(){
-  const list = el('#registrationsList');
-  list.innerHTML = '<p class="small-muted">Đang tải đăng ký...</p>';
+    // ====== Default schedule (used when no bin yet) ======
+    function defaultSchedule(){
+      return [
+        {id: 's1', title: 'MC Sự kiện', date: '2025-10-12', mode: 'Offline', location: 'Hà Nội', seats: 20},
+        {id: 's2', title: 'MC Truyền hình — Khai giảng', date: '2025-11-05', mode: 'Online', location: 'Online', seats: 40},
+        {id: 's3', title: 'Luyện giọng nói', date: '2025-10-20', mode: 'Offline', location: 'Hà Nội', seats: 18}
+      ];
+    }
+
+    // ====== Render schedule (public) ======
+    async function renderSchedule(){
+      const grid = el('#scheduleGrid');
+      grid.innerHTML = '<p class="small-muted">Đang tải lịch...</p>';
+      const bin = await fetchFullBinRecord();
+      const schedule = (bin && bin.schedule) ? bin.schedule : defaultSchedule();
+      grid.innerHTML = '';
+      schedule.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'sched-card';
+        card.innerHTML = `
+          <h4>${escapeHtml(s.title)} — Khai giảng</h4>
+          <p><strong>Ngày:</strong> ${formatDate(s.date)} — <strong>Ca:</strong> ${s.time || 'Xem chi tiết'}</p>
+          <p><strong>Địa điểm:</strong> ${escapeHtml(s.location || s.mode)}</p>
+          <p class="small-muted">Chỗ: ${s.seats ?? 'Không xác định'}</p>
+          <a class="btn-sm" href="#contact" data-prefill='${escapeHtml(JSON.stringify(s))}'>Đăng ký</a>
+        `;
+        grid.appendChild(card);
+      });
+
+      // prefilling: when user clicks Đăng ký from schedule, preselect course field
+      grid.querySelectorAll('a[data-prefill]').forEach(a=>{
+        a.addEventListener('click', (ev) => {
+          try {
+            const obj = JSON.parse(a.getAttribute('data-prefill'));
+            const sel = el('#course');
+            if (sel) {
+              // try to select a matching option
+              for (let i=0;i<sel.options.length;i++){
+                if (sel.options[i].text.includes(obj.title) || sel.options[i].text.includes(obj.title.split('—')[0].trim())){
+                  sel.selectedIndex = i;
+                  break;
+                }
+              }
+            }
+            // scroll to form
+            setTimeout(()=> document.getElementById('name').focus(), 300);
+          } catch(e){}
+        });
+      });
+    }
+
+    // ====== Registrations (admin list) ======
+    async function renderRegistrations(){
+      const list = el('#registrationsList');
+      list.innerHTML = '<p class="small-muted">Đang tải đăng ký...</p>';
+      const full = await fetchFullBinRecord();
+      const regs = (full && full.registrations) ? full.registrations.slice().reverse() : [];
+      if (regs.length===0) {
+        list.innerHTML = '<p class="small-muted">Chưa có đăng ký nào.</p>';
+        return;
+      }
+      list.innerHTML = '';
+      regs.forEach(r=>{
+        const row = document.createElement('div');
+        row.className = 'reg-row';
+        row.innerHTML = `
+          <div class="reg-info">
+            <strong>${escapeHtml(r.name || '—')}</strong> <span class="chip">${escapeHtml(r.course || '—')}</span>
+            <div class="small-muted">${escapeHtml(r.phone || '')} • ${escapeHtml(r.email || '')}</div>
+            <div class="small-muted">Ngày đăng ký: ${formatDate(r.createdAt || r.date || new Date())} • Trạng thái: ${escapeHtml(r.status || 'Chưa xử lý')}</div>
+            <div style="margin-top:6px">${escapeHtml(r.note || '')}</div>
+          </div>
+          <div style="min-width:170px;display:flex;gap:8px;flex-direction:column">
+            <button class="btn-sm" data-action="approve" data-id="${r.id}">Duyệt</button>
+            <button style="background:#f3f3f3;color:#333;border:none;padding:8px;border-radius:8px" data-action="cancel" data-id="${r.id}">Hủy</button>
+            <button style="background:#fff;color:#d00;border:1px solid #f4d0d0;padding:8px;border-radius:8px" data-action="delete" data-id="${r.id}">Xóa</button>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      list.querySelectorAll('button[data-action]').forEach(btn=>{
+        btn.addEventListener('click', async (ev)=>{
+          const action = btn.getAttribute('data-action');
+          const id = btn.getAttribute('data-id');
+          if (action==='delete') {
+            if (!confirm('Bạn có chắc muốn xóa đăng ký này?')) return;
+          }
+          await handleAdminAction(action, id);
+          await renderRegistrations();
+          await renderSchedule(); // in case seats/other things change
+        });
+      });
+    }
+
+    emailjs.init("y9j5yVQLZgW_pPdoP");
+
+async function handleAdminAction(action, id) {
   const full = await fetchFullBinRecord();
-  const regs = (full.registrations||[]).slice().reverse();
-  if (regs.length===0){list.innerHTML='<p class="small-muted">Chưa có đăng ký nào.</p>';return;}
-  list.innerHTML='';
-  regs.forEach(r=>{
-    const row=document.createElement('div');
-    row.className='reg-row';
-    row.innerHTML=`
-      <div class="reg-info">
-        <strong>${escapeHtml(r.name||'—')}</strong> <span class="chip">${escapeHtml(r.course||'—')}</span>
-        <div class="small-muted">${escapeHtml(r.phone||'')} • ${escapeHtml(r.email||'')}</div>
-        <div class="small-muted">Ngày đăng ký: ${formatDate(r.createdAt||r.date||new Date())} • Trạng thái: ${escapeHtml(r.status||'Chưa xử lý')}</div>
-        <div style="margin-top:6px">${escapeHtml(r.note||'')}</div>
-      </div>
-      <div style="min-width:170px;display:flex;gap:8px;flex-direction:column">
-        <button class="btn-sm" data-action="approve" data-id="${r.id}">Duyệt</button>
-        <button style="background:#f3f3f3;color:#333;border:none;padding:8px;border-radius:8px" data-action="cancel" data-id="${r.id}">Hủy</button>
-        <button style="background:#fff;color:#d00;border:1px solid #f4d0d0;padding:8px;border-radius:8px" data-action="delete" data-id="${r.id}">Xóa</button>
-      </div>
-    `;
-    list.appendChild(row);
-  });
+  full.registrations = full.registrations || [];
+  const idx = full.registrations.findIndex(r => r.id === id);
+  if (idx === -1) {
+    alert('Không tìm thấy đăng ký.');
+    return;
+  }
 
-  list.querySelectorAll('button[data-action]').forEach(btn=>{
-    btn.addEventListener('click',async()=>{
-      await handleAdminAction(btn.dataset.action,btn.dataset.id);
-      await renderRegistrations();
-      await renderSchedule();
-    });
-  });
-}
+  const reg = full.registrations[idx];
 
-// === Admin actions ===
-async function handleAdminAction(action,id){
-  const full = await fetchFullBinRecord();
-  const idx = full.registrations.findIndex(r=>r.id===id);
-  if(idx===-1)return alert('Không tìm thấy đăng ký');
-  const reg=full.registrations[idx];
-  if(action==='approve')reg.status='Đã duyệt';
-  if(action==='cancel')reg.status='Đã hủy';
-  if(action==='delete')full.registrations.splice(idx,1);
+  // Cập nhật trạng thái
+  if (action === 'approve') reg.status = 'Đã duyệt';
+  if (action === 'cancel') reg.status = 'Đã hủy';
+  if (action === 'delete') full.registrations.splice(idx, 1);
+
   await putFullBinRecord(full);
-  if(action==='approve'&&reg.email){
-    try{
-      await emailjs.send("service_8drej45","template_7wkfpgt",{to_name:reg.name,to_email:reg.email,course:reg.course,status:'Đã duyệt'});
-      alert('✅ Đã gửi mail xác nhận cho '+reg.name);
-    }catch(e){console.warn('Email fail',e);}
+
+  // === GỬI EMAIL KHI DUYỆT ===
+  if (action === 'approve' && reg.email) {
+    try {
+      const templateParams = {
+        to_name: reg.name || 'bạn',
+        to_email: reg.email,
+        phone: reg.phone || '',
+        course: reg.course || '',
+        message: reg.note || '',
+        status: 'Đã duyệt'
+      };
+
+      // Gửi mail xác nhận qua EmailJS
+      await emailjs.send("service_8drej45", "template_7wkfpgt", templateParams);
+
+      console.log('✅ GLOWI đã gửi EMAIL duyệt cho ', reg.email);
+      alert('✅ Đã gửi mail xác nhận cho ' + reg.name);
+    } catch (err) {
+      console.warn('❌ Lỗi gửi email:', err);
+      alert('⚠️ Gửi email thất bại, xem Console để biết thêm chi tiết.');
+    }
   }
 }
 
-// === Student form ===
-document.getElementById('contactForm').addEventListener('submit',async(e)=>{
-  e.preventDefault();
-  const name=el('#name').value.trim(),phone=el('#phone').value.trim(),email=el('#email').value.trim(),course=el('#course').value,note=el('#message').value.trim();
-  if(!name||!phone||!course)return showMsg('Vui lòng điền đủ thông tin.',false);
-  const reg={id:'r_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,phone,email,course,note,createdAt:new Date().toISOString(),status:'Chưa xử lý'};
-  const full=await fetchFullBinRecord();full.registrations.push(reg);
-  const put=await putFullBinRecord(full);
-  if(put.ok){
-    showMsg('✅ Cảm ơn '+name+'! Chúng tôi đã nhận được đăng ký.');
-    e.target.reset(); await renderRegistrations(); await renderSchedule();
-  }else showMsg('Lỗi khi lưu đăng ký.',false);
-});
+    // ====== Form submit (student) ======
+    document.getElementById('contactForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const name = el('#name').value.trim();
+      const phone = el('#phone').value.trim();
+      const email = el('#email').value.trim();
+      const course = el('#course').value;
+      const note = el('#message').value.trim();
+      if (!name || !phone || !course) {
+        showMsg('Vui lòng điền tên, số điện thoại và chọn khóa.', false);
+        return;
+      }
+      // build registration object
+      const reg = {
+        id: 'r_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+        name, phone, email, course, note,
+        createdAt: new Date().toISOString(),
+        status: 'Chưa xử lý'
+      };
 
-// === Admin login (bảo mật Netlify) ===
-el('#adminLoginBtn').addEventListener('click',async()=>{
-  const pw=el('#adminPass').value;
-  try{
-    const res=await fetch('/.netlify/functions/admin-login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})});
-    const data=await res.json();
-    if(!data.ok)return alert('Password không đúng.');
-    sessionStorage.setItem('glowi_admin_token',data.token);
-    el('#adminPanel').style.display='block';
-    el('#adminLogoutBtn').style.display='inline-block';
-    el('#adminLoginBtn').style.display='none';
-    el('#adminPass').style.display='none';
-    await renderRegistrations();
-  }catch(err){console.error('Login error',err);alert('Lỗi khi đăng nhập.');}
-});
+      // save to JSONBin (fetch full record, push, put)
+      const full = await fetchFullBinRecord();
+      full.registrations = full.registrations || [];
+      full.registrations.push(reg);
+      const put = await putFullBinRecord(full);
+      if (put.ok) {
+        showMsg('✅ Cám ơn ' + (name||'Bạn') + '! Chúng tôi đã nhận được đăng ký. 💖💖💖');
+        document.getElementById('contactForm').reset();
+        // re-render admin & schedule
+        await renderRegistrations();
+        await renderSchedule();
+        // try sending email via EmailJS
+        if (EMAILJS_USER_ID && EMAILJS_USER_ID !== "REPLACE_EMAILJS_USERID" &&
+            EMAILJS_SERVICE_ID && EMAILJS_SERVICE_ID !== "REPLACE_EMAILJS_SERVICEID" &&
+            EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== "REPLACE_EMAILJS_TEMPLATEID") {
+          try {
+            const templateParams = {
+              to_name: name,
+              to_email: email,
+              phone: phone,
+              course: course,
+              message: note
+            };
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+              .then(() => console.log('EmailJS sent'), err => console.warn('EmailJS err', err));
+          } catch(err){ console.warn('EmailJS exception', err); }
+        } else {
+          console.info('EmailJS not configured; skip sending email.');
+        }
+      } else {
+        showMsg('Có lỗi khi lưu đăng ký (sẽ lưu tạm trên trình duyệt).', false);
+        // fallback: already saved to localStorage in putFullBinRecord
+      }
+    });
 
-el('#adminLogoutBtn').addEventListener('click',()=>{
-  sessionStorage.removeItem('glowi_admin_token');
-  el('#adminPanel').style.display='none';
-  el('#adminLogoutBtn').style.display='none';
-  el('#adminLoginBtn').style.display='inline-block';
-  el('#adminPass').style.display='inline-block';
-  el('#adminPass').value='';
-});
+    // ====== Admin login (demo) ======
+    el('#adminLoginBtn').addEventListener('click', async ()=>{
+      const pw = el('#adminPass').value;
+      if (pw === ADMIN_DEMO_PASSWORD) {
+        el('#adminPanel').style.display = 'block';
+        el('#adminLogoutBtn').style.display = 'inline-block';
+        el('#adminLoginBtn').style.display = 'none';
+        el('#adminPass').style.display = 'none';
+        await renderRegistrations();
+        // scroll
+        setTimeout(()=> location.hash = '#admin', 100);
+      } else {
+        alert('Password không đúng (demo).');
+      }
+    });
+    el('#adminLogoutBtn').addEventListener('click', ()=>{
+      el('#adminPanel').style.display = 'none';
+      el('#adminLogoutBtn').style.display = 'none';
+      el('#adminLoginBtn').style.display = 'inline-block';
+      el('#adminPass').style.display = 'inline-block';
+      el('#adminPass').value = '';
+    });
 
-// === init ===
-(async function init(){
-  const full=await fetchFullBinRecord();
-  if(!full.schedule&&!full.registrations)await putFullBinRecord({registrations:[],schedule:defaultSchedule()});
-  await renderSchedule(); await renderRegistrations();
-})();
-</script>
+    // ====== small helpers & init ======
+    function escapeHtml(s){
+      if (!s && s!==0) return '';
+      return String(s).replace(/[&<>"'`]/g, c=>({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;', '`':'&#96;'
+      })[c]);
+    }
 
+    // menu toggle & smooth behaviors
+    document.getElementById('menuToggle').addEventListener('click', ()=> el('#nav').classList.toggle('open'));
+    document.querySelectorAll('.nav-list a').forEach(a => a.addEventListener('click', ()=> el('#nav').classList.remove('open')));
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // initial render
+    (async function init(){
+      // ensure there's a base bin record if empty
+      const full = await fetchFullBinRecord();
+      if (!full || (!full.schedule && !full.registrations)) {
+        const base = {registrations: [], schedule: defaultSchedule()};
+        await putFullBinRecord(base);
+      }
+      await renderSchedule();
+      await renderRegistrations();
+    })();
+  </script>
   <script>
     const intro = document.getElementById('intro');
     const main = document.getElementById('main'); 
