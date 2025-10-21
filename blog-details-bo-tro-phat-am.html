@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="img/img-logo/chot-logo.png">
+    
     <title>GLOWI - Nói để tỏa sáng</title>
 
 
@@ -12,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700,800,900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -284,6 +286,7 @@
     }
 </style>
 
+
 </head>
 
 <body>
@@ -487,6 +490,93 @@
             if (e.target === popup) popup.style.display = "none";
         });
     </script>
+    <script>
+  (function() {
+  'use strict';
+  
+  function isMobile() {
+    return window.innerWidth <= 768; // Mobile nếu width <= 768px
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMenu);
+  } else {
+    initMenu();
+  }
+
+  function initMenu() {
+    const menuToggle = document.querySelector('#menuToggle');
+    const nav = document.querySelector('#nav');
+    
+    if (!menuToggle || !nav) return;
+
+    // Chỉ ẩn menu trên mobile
+    if (isMobile()) nav.style.display = 'none';
+
+    const newMenuToggle = menuToggle.cloneNode(true);
+    menuToggle.parentNode.replaceChild(newMenuToggle, menuToggle);
+
+    newMenuToggle.addEventListener('click', function(e) {
+      if (!isMobile()) return; // desktop không toggle
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const isOpen = nav.classList.contains('open');
+      if (isOpen) {
+        nav.classList.remove('open');
+        nav.style.display = 'none';
+        newMenuToggle.querySelector('i').className = 'fas fa-bars';
+        document.body.style.overflow = 'auto';
+      } else {
+        nav.classList.add('open');
+        nav.style.display = 'block';
+        newMenuToggle.querySelector('i').className = 'fas fa-times';
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    const links = nav.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', function() {
+        if (!isMobile()) return;
+        nav.classList.remove('open');
+        nav.style.display = 'none';
+        newMenuToggle.querySelector('i').className = 'fas fa-bars';
+        document.body.style.overflow = 'auto';
+      });
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!isMobile()) return;
+      if (nav.classList.contains('open') && 
+          !nav.contains(e.target) && 
+          !newMenuToggle.contains(e.target)) {
+        nav.classList.remove('open');
+        nav.style.display = 'none';
+        newMenuToggle.querySelector('i').className = 'fas fa-bars';
+        document.body.style.overflow = 'auto';
+      }
+    });
+  }
+
+  // Nếu resize từ desktop xuống mobile
+  window.addEventListener('resize', function() {
+    const nav = document.querySelector('#nav');
+    if (!nav) return;
+    if (!isMobile()) {
+      nav.style.display = ''; // để CSS desktop quyết định
+      nav.classList.remove('open');
+      const icon = document.querySelector('#menuToggle i');
+      if (icon) icon.className = 'fas fa-bars';
+      document.body.style.overflow = 'auto';
+    } else {
+      nav.style.display = 'none';
+    }
+  });
+
+})();
+
+</script>
 
 </body>
 
