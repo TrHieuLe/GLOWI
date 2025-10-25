@@ -807,8 +807,8 @@
           <img src="img/img-giang-vien/trang-anh.jpg" alt="Trang Anh">
           <div class="instr-info">
             <h4>NGUYỄN THỊ TRANG ANH</h4>
-            <p>MC & Trainer (10 năm)</p>
-            <a href="profile-trang-anh.html" class="read-more">Read More Profile</a>
+            <p>MC & Trainer</p>
+            <a href="profile-trang-anh-mobile.html" class="read-more">Read More Profile</a>
           </div>
         </div>
 
@@ -1635,25 +1635,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-<script>
-document.querySelectorAll('.read-more').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault(); // Ngăn chuyển trang mặc định
-    const href = link.getAttribute('href'); // Ví dụ: profile-trang-anh.html
 
-    
-    const isMobileOrTablet = /Mobi|Android|iPhone|iPad|Tablet/i.test(navigator.userAgent);
-
-  
-    const target = isMobileOrTablet
-      ? href.replace('.html', '-mobile.html')   // Mobile & iPad dùng chung
-      : href.replace('.html', '-desktop.html'); // Laptop dùng riêng
-
-  
-    window.location.href = target;
-  });
-});
-</script>
 <script>
   (function() {
   'use strict';
